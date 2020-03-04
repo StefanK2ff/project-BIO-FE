@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import fullSearch from "./../lib/bookAPI-helper";
+import BookCard from "./BookCard";
 
 export default class Search extends Component {
   state = {
@@ -100,10 +101,9 @@ export default class Search extends Component {
         <h2>Result</h2>
         <ul>
           {this.state.visibleResults.map((book, index) => {
+
             return (
-              <li>
-                {index} - {book.volumeInfo.title}
-              </li>
+              <BookCard book={book}/>
             );
           })}
           {this.state.results.length >3
