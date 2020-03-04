@@ -3,6 +3,7 @@ import fullSearch from "./../lib/bookAPI-helper";
 
 export default class Search extends Component {
   state = {
+    searchFilter: "",
     query: "",
     results: []
   };
@@ -19,6 +20,10 @@ export default class Search extends Component {
     }
   };
 
+  handleSearchSettings = e => {
+    this.setState({ searchFilter: e.target.value });
+  };
+
   render() {
     return (
       <div>
@@ -30,20 +35,55 @@ export default class Search extends Component {
             value={this.state.query}
             onChange={this.formHandleChange}
           />
-        <input type="radio" id="all" name="searchFilter" value="" />
-          <label for="huey">All Field</label>
+          <input
+            type="radio"
+            id="all"
+            name="searchFilter"
+            value=""
+            onChange={this.handleSearchSettings}
+            checked={this.state.searchFilter === ""} 
+          />
+          <label htmlFor="all">All Fields</label>
 
-          <input type="radio" id="intitle:" name="searchFilter" value="intitle:" />
-          <label for="huey">Just Title</label>
+          <input
+            type="radio"
+            id="intitle:"
+            name="searchFilter"
+            value="intitle:"
+            onChange={this.handleSearchSettings}
+            checked={this.state.searchFilter === "intitle:"}
+          />
+          <label htmlFor="intitle:">Just Title</label>
 
-          <input type="radio" id="inauthor:" name="searchFilter" value="inauthor:" />
-          <label for="dewey">Just Author</label>
+          <input
+            type="radio"
+            id="inauthor:"
+            name="searchFilter"
+            value="inauthor:"
+            onChange={this.handleSearchSettings}
+            checked={this.state.searchFilter === "inauthor:"}
+          />
+          <label htmlFor="inauthor:">Just Author</label>
 
-          <input type="radio" id="inpublisher:" name="searchFilter" value="inpublisher:" />
-          <label for="louie">Just Publisher</label>
+          <input
+            type="radio"
+            id="inpublisher:"
+            name="searchFilter"
+            value="inpublisher:"
+            onChange={this.handleSearchSettings}
+            checked={this.state.searchFilter === "inpublisher:"}
+          />
+          <label htmlFor="inpublisher:">Just Publisher</label>
 
-          <input type="radio" id="isbn:" name="searchFilter" value="isbn:" />
-          <label for="louie">Just ISBN</label>
+          <input
+            type="radio"
+            id="isbn:"
+            name="searchFilter"
+            value="isbn:"
+            onChange={this.handleSearchSettings}
+            checked={this.state.searchFilter === "isbn:"}
+          />
+          <label htmlFor="isbn:">Just ISBN</label>
         </form>
         <h2>Result</h2>
         <ul>
