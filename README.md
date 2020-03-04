@@ -88,7 +88,7 @@ Use [https://designrevision.com/docs/shards-react/](Shards for React (UI Kit bui
 
 **Logged in**
 
-* FROM Startpage
+* FROM Home
 
   * VIA Search suggestion w/ link: see all results TO → SERP → Book details
 
@@ -327,7 +327,7 @@ Performs a Search on API to display listing</td>
   </tr>
   <tr>
     <td>/</td>
-    <td>Startpage Component</td>
+    <td>Home Component</td>
     <td>n </td>
     <td>y</td>
     <td>Performs Api calls to search</td>
@@ -426,10 +426,10 @@ export default CurrentUserProvider;
 
 ## Login Component
 
-## Startpage Component (public)
+## Home Component (public)
 
 ```
-<Startpage>
+<Home>
   <Search>
     <Searchfield />
     <Searchcontrols />
@@ -437,7 +437,7 @@ export default CurrentUserProvider;
     <SERP Link />
   </Search>
     <PageControls / >
-</Startpage>
+</Home>
 ```
 
 **Notes**
