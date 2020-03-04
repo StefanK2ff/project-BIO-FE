@@ -5,7 +5,16 @@ export default class Search extends Component {
   state = {
     searchFilter: "",
     query: "",
-    results: []
+    results: [],
+    visibleResults: [],
+    expandedSearch: false
+  };
+
+  toggleExpandedSearch = () => {
+    this.setState({ expandedSearch: !this.state.expandedSearch });
+    !this.state.expandedSearch
+        ? this.setState({ visibleResults: this.state.results })
+        : this.setState({ visibleResults: this.state.results.slice(0, 4) });
   };
 
   formHandleChange = async e => {
@@ -13,7 +22,10 @@ export default class Search extends Component {
     let { value, name } = e.target;
     this.setState({ [name]: value });
     try {
-      let results = await fullSearch(value);
+      let results = await fullSearch(value, this.state.searchFilter, 40);
+      this.state.expandedSearch
+        ? this.setState({ visibleResults: results })
+        : this.setState({ visibleResults: results.slice(0, 4) });
       this.setState({ results: results });
     } catch (error) {
       console.log(error);
@@ -41,7 +53,7 @@ export default class Search extends Component {
             name="searchFilter"
             value=""
             onChange={this.handleSearchSettings}
-            checked={this.state.searchFilter === ""} 
+            checked={this.state.searchFilter === ""}
           />
           <label htmlFor="all">All Fields</label>
 
@@ -87,13 +99,23 @@ export default class Search extends Component {
         </form>
         <h2>Result</h2>
         <ul>
-          {this.state.results.map((book, index) => {
+          {this.state.visibleResults.map((book, index) => {
             return (
               <li>
                 {index} - {book.volumeInfo.title}
               </li>
             );
           })}
+          {this.state.results.length >3
+            ? !this.state.expandedSearch 
+                ? <button onClick={this.toggleExpandedSearch}>Show more results</button>
+                : <button onClick={this.toggleExpandedSearch}>Show less results</button>
+            :null
+            }
+            
+            
+            
+          {!this.state.expandedSearch ? 'some additional control':null}
         </ul>
       </div>
     );
