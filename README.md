@@ -327,7 +327,7 @@ Performs a Search on API to display listing</td>
   </tr>
   <tr>
     <td>/</td>
-    <td>Library Comp.</td>
+    <td>Startpage Component</td>
     <td>n </td>
     <td>y</td>
     <td>Performs Api calls to search</td>
