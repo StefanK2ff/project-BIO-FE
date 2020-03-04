@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withAuth } from "./../lib/Auth";
+import { withAuth } from "../lib/Auth";
 
 class MyCollectionsDetails extends Component {
   render() {
