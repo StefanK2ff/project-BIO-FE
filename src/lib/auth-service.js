@@ -15,6 +15,13 @@ class Auth {
     // .then((response) => response.data);
   }
 
+  refresh(userid) {
+    console.log("hello from axios refresh")
+    return this.auth
+      .get(`/${userid}/refresh`)
+      .then(({ data }) => data);
+  }
+
   login({ email, password }) {
     return this.auth
       .post("/auth/login", { email, password })

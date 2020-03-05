@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import addBookToCollection from "./../lib/collections-services"
+import { withAuth } from "./../lib/Auth";
 
-export default function BookCard(props) {
+function BookCard(props) {
     const addToLib = e => {
-        console.log(e.target.id)
-        //addBookToCollection() //owner, items, name
-        
+        let defaultCollection = (props.user.collections.filter((oneCol)=> {return oneCol.default === true}))[0];
+        addBookToCollection(defaultCollection._id, defaultCollection.items.push(e.target.id),defaultCollection.name); //collectionId, items, name
+        props.refresh(props.user._id);
+        console.log(props.user)
     }
     return (
         <div key={props.book.id}>
@@ -24,3 +26,5 @@ export default function BookCard(props) {
         </div>
     )
 }
+
+export default withAuth(BookCard)

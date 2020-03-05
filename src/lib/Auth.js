@@ -10,10 +10,11 @@ const withAuth = WrappedComponent => {
     render() {
       return (
         <Consumer>
-          {({ login, signup, logout, user, isLoggedIn }) => {
+          {({ login, signup, logout, user, refresh, isLoggedIn }) => {
             return (
               <WrappedComponent
                 user={user}
+                refresh={refresh}
                 isLoggedIn={isLoggedIn}
                 login={login}
                 signup={signup}
@@ -61,6 +62,14 @@ class AuthProvider extends React.Component {
       );
   }
 
+  refresh = (userid) => {
+    console.log("herrlo from ATUH refresh")
+    authService
+    .refresh(userid)
+    .then(user => this.setState({user}))
+    .catch(err => console.log(err))
+  };
+
   signup = (email, password) => {
     authService
       .signup({ email, password })
@@ -84,10 +93,10 @@ class AuthProvider extends React.Component {
 
   render() {
     const { isLoading, isLoggedIn, user } = this.state;
-    const { login, logout, signup } = this;
+    const { login, logout, signup, refresh } = this;
 
     return (
-      <Provider value={{ isLoading, isLoggedIn, user, login, logout, signup }}>
+      <Provider value={{ isLoading, isLoggedIn, user, login, logout, signup, refresh }}>
         {this.props.children}
       </Provider>
     );
@@ -98,5 +107,4 @@ class AuthProvider extends React.Component {
 }
 
 export { withAuth, AuthProvider };
-
 //      Consumer ,  Provider
