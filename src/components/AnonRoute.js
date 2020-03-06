@@ -15,7 +15,7 @@ function AnonRoute({ component: Component, isLoggedIn, ...rest }) {
     <Route
       {...rest}
       render={function(props) {
-        if (isLoggedIn) return <Redirect to="/private" />;
+        if (isLoggedIn) return <Redirect to="/" />;
         else if (!isLoggedIn) return <Component {...props} />;
       }}
     />

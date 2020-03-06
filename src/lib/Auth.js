@@ -66,7 +66,6 @@ class AuthProvider extends React.Component {
     authService
     .refresh(userId)
     .then(user => {
-      console.log("Answer from auth service", user)
       this.setState({user})
       return user //
     } )
