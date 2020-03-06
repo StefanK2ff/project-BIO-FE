@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import fullSearch from "./../lib/bookAPI-helper";
 import BookCard from "./BookCard";
+import { withAuth } from "./../lib/Auth";
 
-export default class Search extends Component {
+class Search extends Component {
   state = {
     searchFilter: "",
     query: "",
@@ -10,6 +11,9 @@ export default class Search extends Component {
     visibleResults: [],
     expandedSearch: false
   };
+  componentDidMount() {
+    this.props.refresh(this.props.user._id);
+  }
 
   toggleExpandedSearch = () => {
     this.setState({ expandedSearch: !this.state.expandedSearch });
@@ -121,3 +125,6 @@ export default class Search extends Component {
     );
   }
 }
+
+
+export default withAuth(Search)
