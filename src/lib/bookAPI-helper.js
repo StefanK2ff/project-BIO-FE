@@ -4,7 +4,7 @@ const baseURL = "https://www.googleapis.com/books/v1/volumes";
 const APIkey = "AIzaSyD_mH2FaBJych4OrXJ8OfsnQ1Uwh9z6kHs";
 
 function fullSearch(query, filter, limit) {
-    if (!filter) filter=""
+  if (!filter) filter=""
   let maxResults = (limit || limit < 40) ? limit : 10;
   if (query.length > 2) {
     return axios
@@ -16,4 +16,17 @@ function fullSearch(query, filter, limit) {
   } else return [];
 }
 
-export default fullSearch;
+async function getBook(id) {
+  try {
+     return await axios
+    .get(`${baseURL}/${id}?&key=${APIkey}`)
+    .then(response => response.data)
+    .catch(error => {
+      console.log(error);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export {fullSearch, getBook};

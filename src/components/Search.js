@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import fullSearch from "./../lib/bookAPI-helper";
+import {fullSearch} from "./../lib/bookAPI-helper";
 import BookCard from "./BookCard";
 import { withAuth } from "./../lib/Auth";
 

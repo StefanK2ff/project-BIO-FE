@@ -62,7 +62,6 @@ class BookCard extends Component {
 
         <li>{this.props.book.volumeInfo.publisher}</li>
         
-        
         {this.onDefaulftList() ? <input
           onClick={this.removeFromLib}
           type="button"
@@ -74,8 +73,7 @@ class BookCard extends Component {
           value="Add to library"
           id={this.props.book.id}
         />}
-
-        <Link to={`/books/${this.props.book.id}`}>See book in detail >></Link>
+        <Link to={`/book/${this.props.book.id}`}>See book in detail >></Link>
       </div>
     );
   }
