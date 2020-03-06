@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import addBookToCollection from "./../lib/collections-services";
+import {addBookToCollection} from "./../lib/collections-services";
 import { withAuth } from "./../lib/Auth";
 
 class BookCard extends Component {
