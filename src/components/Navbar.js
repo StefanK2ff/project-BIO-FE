@@ -11,9 +11,11 @@ class Navbar extends Component {
         <Link to={"/"} id="home-btn">
           <h4>Home</h4>
         </Link>
+        
         {isLoggedIn ? (
           <>
             <p>email: {user.email}</p>
+            <Link to={"/collections"} id="home-btn"><h4>My Collections</h4></Link>
             <button onClick={logout}>Logout</button>
           </>
         ) : (
