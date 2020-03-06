@@ -103,13 +103,9 @@ class BookDetail extends Component {
             onChange={this.formHandleChange}
           /><button type="submit" bookid={this.state.book.id} onClick={this.addToNewColl}>Create + add</button>
 
-          </form>
-          
-          
+          </form>     
           </li>
           </ul>
-
-          
         </div>
 
       );

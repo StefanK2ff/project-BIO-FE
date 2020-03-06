@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {addBookToCollection} from "./../lib/collections-services";
+import { addBookToCollection } from "./../lib/collections-services";
 import { withAuth } from "./../lib/Auth";
 
 class BookCard extends Component {
@@ -13,8 +13,8 @@ class BookCard extends Component {
   onDefaulftList = () => {
     let defaultCollection = this.getdefaultList();
     let defaultItems = defaultCollection.items;
-      return defaultItems.includes(this.props.book.id)
-  }
+    return defaultItems.includes(this.props.book.id);
+  };
 
   componentDidMount() {
     //
@@ -61,18 +61,22 @@ class BookCard extends Component {
         ) : null}
 
         <li>{this.props.book.volumeInfo.publisher}</li>
-        
-        {this.onDefaulftList() ? <input
-          onClick={this.removeFromLib}
-          type="button"
-          value="remove from library"
-          id={this.props.book.id}
-        /> : <input
-          onClick={this.addToLib}
-          type="button"
-          value="Add to library"
-          id={this.props.book.id}
-        />}
+
+        {this.onDefaulftList() ? (
+          <input
+            onClick={this.removeFromLib}
+            type="button"
+            value="remove from library"
+            id={this.props.book.id}
+          />
+        ) : (
+          <input
+            onClick={this.addToLib}
+            type="button"
+            value="Add to library"
+            id={this.props.book.id}
+          />
+        )}
         <Link to={`/book/${this.props.book.id}`}>See book in detail >></Link>
       </div>
     );
