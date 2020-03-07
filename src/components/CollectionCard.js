@@ -21,12 +21,13 @@ class CollectionCard extends Component {
 
   saveName = async e => {
     e.preventDefault();
-    try {
-        await addBookToCollection(this.props.collection._id, this.props.collection.items, this.state.newName)
-    } catch (error) {
-        console.log("error while saving", error)
+    if (this.state.newName !== this.props.collection.name) {
+        try {
+            await addBookToCollection(this.props.collection._id, this.props.collection.items, this.state.newName)
+        } catch (error) {
+            console.log("error while saving", error)
+        }
     }
-    
     this.props.refresh(this.props.user._id);
     this.setState({ editmode: false, newName:"" })
   }
@@ -38,7 +39,7 @@ class CollectionCard extends Component {
         {this.state.editmode ? (
           <li>
             <form className="inlineEdit">
-              <button onClick={this.saveName}>Save name</button>{" "}
+              <button onClick={this.saveName}> { (this.state.newName !== this.props.collection.name)? "Save name" : "Keep name" } </button>{" "}
               <input
                 type="text"
                 name="newName"
