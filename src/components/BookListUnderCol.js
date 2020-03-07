@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BookLineUnderCol from "./BookLineUnderCol";
+import shortid from "shortid";
 
 export default class BookListUnderCol extends Component {
   state = {
@@ -35,7 +36,7 @@ export default class BookListUnderCol extends Component {
   render() {
     return (
 
-      <div key={this.props.key}>
+      <div key={shortid.generate()}>
         {!this.state.booklist ? (
             <ul>
                 <li><button onClick={this.toggleBookList}>Show books</button></li>
