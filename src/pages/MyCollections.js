@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withAuth } from "./../lib/Auth";
+import CollectionCard from "./../components/CollectionCard";
 
 class MyCollections extends Component {
   componentDidMount() {
@@ -8,14 +9,10 @@ class MyCollections extends Component {
   render() {
     return (
       <div>
-        <h1>My Collection</h1>
-        <ul>
-        {this.props.user.collections.map((collection) => {
-          return <li>{collection.name}, with {collection.items.length} item(s)</li>
-        })
-        }
-        </ul>
-        
+        <h1>My Collections</h1>
+        {this.props.user.collections.map(collection => {
+          return <CollectionCard collection={collection} />;
+        })}
       </div>
     );
   }
