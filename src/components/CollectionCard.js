@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { addBookToCollection } from "./../lib/collections-services";
+import BookListUnderCol from "./BookListUnderCol";
 import { withAuth } from "./../lib/Auth";
 
 class CollectionCard extends Component {
   state = {
     newName: "",
-    editmode: false
+    editmode: false,
+    booklist: false
   };
   nameEditField = e => {
     e.preventDefault();
@@ -32,12 +34,18 @@ class CollectionCard extends Component {
     this.setState({ editmode: false, newName:"" })
   }
 
+  toggleBookList = e => {
+    e.preventDefault();
+    this.setState({booklist:!this.state.booklist})
+  }
+
   render() {
     const { name, items } = this.props.collection;
     return (
       <div>
+        <li className="inlineEdit">
         {this.state.editmode ? (
-          <li>
+            <div>
             <form className="inlineEdit">
               <button onClick={this.saveName}> { (this.state.newName !== this.props.collection.name)? "Save name" : "Keep name" } </button>{" "}
               <input
@@ -47,14 +55,18 @@ class CollectionCard extends Component {
                 onChange={this.formHandleChange}
               />
             </form>
-            , with {items.length} item(s){" "}
-          </li>
+            <span>, with {items.length} item(s){" "}"</span> 
+            </div>
         ) : (
-          <li>
+            <div>
             <button onClick={this.nameEditField}>Edit name</button> {name}, with{" "}
             {items.length} item(s){" "}
-          </li>
+            </div>
         )}
+
+        <button onClick={this.toggleBookList}>Show books</button>
+            {this.state.booklist ? <BookListUnderCol items={items} /> : null}
+        </li>
       </div>
     );
   }
