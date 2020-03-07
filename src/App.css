@@ -24,3 +24,7 @@ button.navbar-button {
   color: white;
   text-decoration: none;
 }
+
+.inlineEdit {
+  display: inline;
+}
