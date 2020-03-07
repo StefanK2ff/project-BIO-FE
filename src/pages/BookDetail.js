@@ -13,8 +13,6 @@ class BookDetail extends Component {
     };
   }
 
-  
-
   formHandleChange = async e => {
     e.preventDefault();
     let { value, name } = e.target;

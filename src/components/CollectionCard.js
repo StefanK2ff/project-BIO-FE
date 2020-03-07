@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { addBookToCollection } from "./../lib/collections-services";
 import BookListUnderCol from "./BookListUnderCol";
 import { withAuth } from "./../lib/Auth";
@@ -7,12 +6,11 @@ import { withAuth } from "./../lib/Auth";
 class CollectionCard extends Component {
   state = {
     newName: "",
-    editmode: false,
-    booklist: false
+    editmode: false
   };
   nameEditField = e => {
     e.preventDefault();
-    this.setState({ editmode: true, newName:this.props.collection.name }); // anti pattern - ok?
+    this.setState({ editmode: true, newName: this.props.collection.name }); // anti pattern - ok?
   };
 
   formHandleChange = e => {
@@ -24,30 +22,33 @@ class CollectionCard extends Component {
   saveName = async e => {
     e.preventDefault();
     if (this.state.newName !== this.props.collection.name) {
-        try {
-            await addBookToCollection(this.props.collection._id, this.props.collection.items, this.state.newName)
-        } catch (error) {
-            console.log("error while saving", error)
-        }
+      try {
+        await addBookToCollection(
+          this.props.collection._id,
+          this.props.collection.items,
+          this.state.newName
+        );
+      } catch (error) {
+        console.log("error while saving", error);
+      }
     }
     this.props.refresh(this.props.user._id);
-    this.setState({ editmode: false, newName:"" })
-  }
-
-  toggleBookList = e => {
-    e.preventDefault();
-    this.setState({booklist:!this.state.booklist})
-  }
+    this.setState({ editmode: false, newName: "" });
+  };
 
   render() {
-    const { name, items } = this.props.collection;
+    const { name, items, _id} = this.props.collection;
     return (
-      <div>
-        <li className="inlineEdit">
+      <li className="inlineEdit" key={this.props.collection._id}>
         {this.state.editmode ? (
-            <div>
+          <div>
             <form className="inlineEdit">
-              <button onClick={this.saveName}> { (this.state.newName !== this.props.collection.name)? "Save name" : "Keep name" } </button>{" "}
+              <button onClick={this.saveName}>
+                {" "}
+                {this.state.newName !== this.props.collection.name
+                  ? "Save name"
+                  : "Keep name"}{" "}
+              </button>{" "}
               <input
                 type="text"
                 name="newName"
@@ -55,21 +56,20 @@ class CollectionCard extends Component {
                 onChange={this.formHandleChange}
               />
             </form>
-            <span>, with {items.length} item(s){" "}"</span> 
-            </div>
+            <span>, with {items.length} item(s) "</span>
+          </div>
         ) : (
-            <div>
+          <div>
             <button onClick={this.nameEditField}>Edit name</button> {name}, with{" "}
             {items.length} item(s){" "}
-            </div>
+          </div>
         )}
-
-        <button onClick={this.toggleBookList}>Show books</button>
-            {this.state.booklist ? <BookListUnderCol items={items} /> : null}
-        </li>
-      </div>
+        
+          <BookListUnderCol key={_id} items={items} />
+        
+      </li>
     );
   }
 }
 
-export default withAuth(CollectionCard)
+export default withAuth(CollectionCard);

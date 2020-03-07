@@ -3,31 +3,58 @@ import BookLineUnderCol from "./BookLineUnderCol";
 
 export default class BookListUnderCol extends Component {
   state = {
-    itemsToRemove: []
+    itemsToRemove: [],
+    booklist: false
   };
-  collectRemoval = (id) => {
-    let updatedItemsToRemove = []
-    updatedItemsToRemove = [...this.state.itemsToRemove].push(id)
-    this.setState({itemsToRemove: updatedItemsToRemove})
+  doMarkForRemove = id => {
+    
+    let updatedItemsToRemove = [];
+    updatedItemsToRemove.push(id, ...this.state.itemsToRemove)
+    this.setState({itemsToRemove: updatedItemsToRemove });
+    console.log("updatedItemsToRemove ", updatedItemsToRemove)
+    //console.log(this.state.itemsToRemove)
   };
-  removeRemoval = (id) => {
-    let updatedItemsToRemove = []
-    updatedItemsToRemove = [...this.state.itemsToRemove].push(id)
-    this.setState({itemsToRemove: updatedItemsToRemove})
+  undoMarkForRemove = id => {
+    console.log("hello from undoMarkForRemove", id)
+    let updatedItemsToRemove = this.state.itemsToRemove;
+    const i = updatedItemsToRemove.indexOf(id);
+    if (i > -1) updatedItemsToRemove.splice(i, 1);
+    this.setState({ itemsToRemove: updatedItemsToRemove });
+    console.log(this.state.itemsToRemove)
+  };
+
+  toggleBookList = e => {
+    e.preventDefault();
+    this.setState({ booklist: !this.state.booklist });
+  };
+
+  saveAndClose = e => {
+      //
   }
 
   render() {
     return (
-      <div>
-        <ul>
-          {this.props.items.map(book => {
-            return (
-              <li>
-                <BookLineUnderCol bookid={book} />{" "}
-              </li>
-            );
-          })}
-        </ul>
+
+      <div key={this.props.key}>
+        {!this.state.booklist ? (
+            <ul>
+                <li><button onClick={this.toggleBookList}>Show books</button></li>
+            </ul>
+          
+        ) : (
+            <ul>
+            <li><button onClick={this.toggleBookList}>Hide books</button></li>
+          
+            {this.props.items.map(book => {
+              return (
+                
+                  <BookLineUnderCol bookid={book} doMarkForRemove={this.doMarkForRemove} undoMarkForRemove={this.undoMarkForRemove}/>
+                
+              );
+            })}
+          
+          </ul>
+        )}
       </div>
     );
   }

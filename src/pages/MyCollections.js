@@ -10,9 +10,11 @@ class MyCollections extends Component {
     return (
       <div>
         <h1>My Collections</h1>
-        {this.props.user.collections.map(collection => {
-          return <CollectionCard collection={collection} />;
-        })}
+        <ul>
+          {this.props.user.collections.map(collection => {
+            return <CollectionCard collection={collection} />;
+          })}
+        </ul>
       </div>
     );
   }
