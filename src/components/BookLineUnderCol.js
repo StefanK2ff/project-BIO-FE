@@ -4,26 +4,34 @@ import {getBook} from "./../lib/bookAPI-helper";
 export default class BookLineUnderCol extends Component {
     state = {
         title: "",
-        authors: []
+        authors: [],
+        loading: true,
+        markedForRemoval: false,
+        buttonText: "Remove"
     }
-    getBookDetails = async(id) => {
-        try {
-            let results = await getBook(id);
-            this.state.expandedSearch
-              ? this.setState({ visibleResults: results })
-              : this.setState({ visibleResults: results.slice(0, 4) });
-            this.setState({ results: results });
-          } catch (error) {
-            console.log(error);
-          }
-    }
+    
     componentDidMount () {
-        this.getBookDetails(this)
+    let bookProm = getBook(this.props.bookid);
+    bookProm.then(result => {
+        let authorsString = "";
+        result.volumeInfo.authors.map((author) => {
+            authorsString = authorsString + author;
+        })
+        this.setState({title: result.volumeInfo.title, authors: authorsString, loading: false});
+        })
     }
+
+    toggleRemove = e => {
+        e.preventDefault();
+        this.setState({markedForRemoval: !this.state.markedForRemoval, buttonText: this.state.buttonText === "Remove" ? "Keep" : "Remove"})
+    }
+
     render() {
         return (
-            <div>Line
-                
+            <div>
+            {this.state.loading
+            ? "loading"
+            : <span>{this.state.title} - {this.state.authors} <button onClick={this.toggleRemove}>{this.state.buttonText}</button></span>} 
             </div>
         )
     }
