@@ -23,7 +23,6 @@ async function createCollectionWithItems(owner, items, name) {
       .catch(error => {
         console.log(error);
       });
-      console.log()
   } catch (error) {
     console.log("Error in createCollectionWithItems: ", error);
   }

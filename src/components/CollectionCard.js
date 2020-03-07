@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { addBookToCollection } from "./../lib/collections-services";
 import { withAuth } from "./../lib/Auth";
 
-export default class CollectionCard extends Component {
+class CollectionCard extends Component {
   state = {
     newName: "",
     editmode: false
@@ -21,7 +21,13 @@ export default class CollectionCard extends Component {
 
   saveName = async e => {
     e.preventDefault();
-
+    try {
+        await addBookToCollection(this.props.collection._id, this.props.collection.items, this.state.newName)
+    } catch (error) {
+        console.log("error while saving", error)
+    }
+    
+    this.props.refresh(this.props.user._id);
     this.setState({ editmode: false, newName:"" })
   }
 
@@ -52,3 +58,5 @@ export default class CollectionCard extends Component {
     );
   }
 }
+
+export default withAuth(CollectionCard)
