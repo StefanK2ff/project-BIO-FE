@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 
 export default class BookLineUnderCol extends Component {
@@ -25,7 +26,7 @@ export default class BookLineUnderCol extends Component {
     return (
       <li key={this.props.book.id}>
           <span>
-            {this.props.book.volumeInfo.title} - {this.props.book.volumeInfo.authors.map((a) => a)}
+          <Link to={`/book/${this.props.book.id}`}>{this.props.book.volumeInfo.title} </Link> - {this.props.book.volumeInfo.authors.map((a) => a)}
             <button onClick={this.toggleRemove}>{this.state.buttonText}</button>
           </span>
 

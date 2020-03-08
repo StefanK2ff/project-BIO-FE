@@ -16,6 +16,7 @@ class Navbar extends Component {
           <>
             <p>email: {user.email}</p>
             <Link to={"/collections"} id="home-btn"><h4>My Collections</h4></Link>
+            <Link to={"/library"} id="home-btn"><h4>My Library</h4></Link>
             <button onClick={logout}>Logout</button>
           </>
         ) : (
