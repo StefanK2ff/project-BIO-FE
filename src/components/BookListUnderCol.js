@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import BookLineUnderCol from "./BookLineUnderCol";
 import { addBookToCollection } from "./../lib/collections-services";
 import { getBook } from "./../lib/bookAPI-helper";
+import { withAuth } from "./../lib/Auth";
 
-export default class BookListUnderCol extends Component {
+class BookListUnderCol extends Component {
   state = {
     itemsToRemove: "",
     booklist: false,
     edited: false,
-    itemsResoved: [],
+    itemsResolved: [],
     loading: false,
   };
   doMarkForRemove = id => {
@@ -39,7 +40,6 @@ export default class BookListUnderCol extends Component {
   };
 
   toggleBookList = e => {
-    e.preventDefault();
       if (!this.state.booklist) { this.loadBooks()} 
       this.setState({ booklist: !this.state.booklist });
   };
@@ -51,22 +51,23 @@ export default class BookListUnderCol extends Component {
       if (i > -1) newItemList.splice(i, 1);
     });
     addBookToCollection(this.props.collid, newItemList, this.props.collName); //// collectionId, items, name
+    this.props.refresh(this.props.user._id);
+    this.setState({itemsResolved: []})
     this.toggleBookList();
-    this.forceUpdate();
   };
 
   loadBooks = () => {
-    if (this.state.itemsResoved.length === 0) {
+    if (this.state.itemsResolved.length === 0) {
       this.setState({ loading: true})
       this.props.items.forEach( item => {
           let bookProm = getBook(item);
           bookProm.then(result => {
             let bookArray = []
-            bookArray.push(result, ...this.state.itemsResoved)
+            bookArray.push(result, ...this.state.itemsResolved)
             this.setState({
-              itemsResoved: bookArray
-            }, () => {if (this.state.itemsResoved.length === this.props.items.length) {
-              this.setState({loading: false}, () => console.log("finished loading: ", this.state.itemsResoved))}});
+              itemsResolved: bookArray
+            }, () => {if (this.state.itemsResolved.length === this.props.items.length) {
+              this.setState({loading: false}, () => console.log("finished loading: ", this.state.itemsResolved))}});
           });
         
       });
@@ -78,7 +79,7 @@ export default class BookListUnderCol extends Component {
     return (
       <div>
         {!this.state.booklist 
-          ? (<button onClick={this.toggleBookList}>Show books</button>)
+          ? (this.props.items.length > 0 ? <button onClick={this.toggleBookList}>Show books</button> : null)
           : (this.state.loading 
               ? ("Currently loading")
               : (
@@ -89,7 +90,7 @@ export default class BookListUnderCol extends Component {
                   : <button onClick={this.saveAndClose}>Save & Hide</button>
                   }
                   <ul>
-                    {this.state.itemsResoved.map(book => {
+                    {this.state.itemsResolved.map(book => {
                       return (
                         <BookLineUnderCol
                           key={book.id}
@@ -107,3 +108,5 @@ export default class BookListUnderCol extends Component {
     );
   }
 }
+
+export default withAuth(BookListUnderCol)
