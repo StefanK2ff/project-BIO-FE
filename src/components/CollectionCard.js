@@ -65,7 +65,7 @@ class CollectionCard extends Component {
           </div>
         )}
         
-          <BookListUnderCol key={_id} items={items} />
+          <BookListUnderCol key={_id} collid={_id} collName={name} items={items} />
         
       </li>
     );

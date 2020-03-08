@@ -12,7 +12,7 @@ class MyCollections extends Component {
         <h1>My Collections</h1>
         <ul>
           {this.props.user.collections.map(collection => {
-            return <CollectionCard collection={collection} />;
+            return <CollectionCard key={collection._id} collection={collection} />;
           })}
         </ul>
       </div>
