@@ -107,7 +107,7 @@ class Search extends Component {
           {this.state.visibleResults.map((book) => {
 
             return (
-              <BookCard book={book}/>
+              <BookCard key={book.id} book={book}/>
             );
           })}
           {this.state.results.length >3

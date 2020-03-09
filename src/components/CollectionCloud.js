@@ -88,6 +88,7 @@ class CollectionCloud extends Component {
           } else {
             return (
               <button
+                key={collection._id}
                 onClick={this.addToCollection}
                 id={collection._id}
                 bookid={this.props.bookId}

@@ -40,7 +40,7 @@ class BookDetail extends Component {
           </p>
           <p dangerouslySetInnerHTML={{__html: description}} />
 
-          <CollectionCloud bookId={this.state.book.id} />
+          <CollectionCloud key={this.state.book.id} bookId={this.state.book.id} />
         </div>
 
       );
