@@ -4,22 +4,34 @@ import { Link } from "react-router-dom";
 import { withAuth } from "./../lib/Auth";
 
 class BookCard extends Component {
-
   render() {
     return (
       <div key={this.props.book.id}>
         <Link to={`/book/${this.props.book.id}`}>
-        <img
-          src={this.props.book.volumeInfo.imageLinks.smallThumbnail}
-          alt={this.props.book.volumeInfo.title}
-        />
+          {!this.props.book.volumeInfo.imageLinks ? (
+            <img src="images/Image-Coming-Soon.png" alt="" />
+          ) : (
+            <img
+              src={this.props.book.volumeInfo.imageLinks.smallThumbnail}
+              alt=""
+            />
+          )}
         </Link>
-        <li><Link to={`/book/${this.props.book.id}`}>{this.props.book.volumeInfo.title}</Link></li>
-        {/* <li>{this.props.book.volumeInfo.subtitle}</li> */}
-        {this.props.book.volumeInfo.authors ? (
-          <li>{this.props.book.volumeInfo.authors.map(author => author)}</li>
-        ) : null}
-        <li>{this.props.book.volumeInfo.publisher}</li>
+
+        <strong>
+          {!this.props.book.volumeInfo.title
+            ? "Without title"
+            : this.props.book.volumeInfo.title}
+        </strong>
+        {!this.props.book.volumeInfo.subtitle ? null : (
+          <p>{this.props.book.volumeInfo.subtitle}</p>
+        )}
+        <p>
+          {!this.props.book.volumeInfo.authors
+            ? "Unknown Authors"
+            : "From " +
+              this.props.book.volumeInfo.authors.map(author => author + " ")}
+        </p>
       </div>
     );
   }
