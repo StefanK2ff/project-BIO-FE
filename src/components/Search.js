@@ -104,7 +104,7 @@ class Search extends Component {
         </form>
         <h2>Result</h2>
         <ul>
-          {this.state.visibleResults.map((book, index) => {
+          {this.state.visibleResults.map((book) => {
 
             return (
               <BookCard book={book}/>

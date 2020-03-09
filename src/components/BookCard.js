@@ -16,10 +16,6 @@ class BookCard extends Component {
     return defaultItems.includes(this.props.book.id);
   };
 
-  componentDidMount() {
-    //
-  }
-
   addToLib = e => {
     e.persist();
     let defaultCollection = this.getdefaultList();
