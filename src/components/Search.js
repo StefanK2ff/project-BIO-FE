@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import {fullSearch} from "./../lib/bookAPI-helper";
+import { fullSearch } from "./../lib/bookAPI-helper";
 import BookCard from "./BookCard";
 import { withAuth } from "./../lib/Auth";
+import DefaultCollectionButton from "./DefaultCollectionButton";
+import { Link } from "react-router-dom";
 
 class Search extends Component {
   state = {
@@ -12,14 +14,14 @@ class Search extends Component {
     expandedSearch: false
   };
   componentDidMount() {
-    this.props.refresh(this.props.user._id);
+    if (this.props.user) this.props.refresh(this.props.user._id);
   }
 
   toggleExpandedSearch = () => {
     this.setState({ expandedSearch: !this.state.expandedSearch });
     !this.state.expandedSearch
-        ? this.setState({ visibleResults: this.state.results })
-        : this.setState({ visibleResults: this.state.results.slice(0, 4) });
+      ? this.setState({ visibleResults: this.state.results })
+      : this.setState({ visibleResults: this.state.results.slice(0, 4) });
   };
 
   formHandleChange = async e => {
@@ -104,27 +106,38 @@ class Search extends Component {
         </form>
         <h2>Result</h2>
         <ul>
-          {this.state.visibleResults.map((book) => {
-
+          {this.state.visibleResults.map(book => {
             return (
-              <BookCard key={book.id} book={book}/>
+              <div key={book.id}>
+                <BookCard  book={book} />
+                {this.props.user ? (
+                  
+                  <DefaultCollectionButton bookId={book.id} />
+                ) : (
+                  <Link to="/login">
+                    log in to add this book to your library.
+                  </Link>
+                )}
+              </div>
             );
           })}
-          {this.state.results.length >3
-            ? !this.state.expandedSearch 
-                ? <button onClick={this.toggleExpandedSearch}>Show more results</button>
-                : <button onClick={this.toggleExpandedSearch}>Show less results</button>
-            :null
-            }
-            
-            
-            
-          {!this.state.expandedSearch ? 'some additional control':null}
+          {this.state.results.length > 3 ? (
+            !this.state.expandedSearch ? (
+              <button onClick={this.toggleExpandedSearch}>
+                Show more results
+              </button>
+            ) : (
+              <button onClick={this.toggleExpandedSearch}>
+                Show less results
+              </button>
+            )
+          ) : null}
+
+          {!this.state.expandedSearch ? "some additional control" : null}
         </ul>
       </div>
     );
   }
 }
 
-
-export default withAuth(Search)
+export default withAuth(Search);
