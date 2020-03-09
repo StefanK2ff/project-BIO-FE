@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BookLineUnderCol from "./BookLineUnderCol";
-import { addBookToCollection } from "./../lib/collections-services";
+import { modifyCollection } from "./../lib/collections-services";
 import { getBook } from "./../lib/bookAPI-helper";
 import { withAuth } from "./../lib/Auth";
 
@@ -50,7 +50,7 @@ class BookListUnderCol extends Component {
       const i = newItemList.indexOf(item);
       if (i > -1) newItemList.splice(i, 1);
     });
-    addBookToCollection(this.props.collid, newItemList, this.props.collName); //// collectionId, items, name
+    modifyCollection(this.props.collid, newItemList, this.props.collName); //// collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.setState({itemsResolved: []})
     this.toggleBookList();

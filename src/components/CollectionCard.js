@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { addBookToCollection } from "./../lib/collections-services";
+import { modifyCollection } from "./../lib/collections-services";
 import BookListUnderCol from "./BookListUnderCol";
 import { withAuth } from "./../lib/Auth";
 
@@ -23,7 +23,7 @@ class CollectionCard extends Component {
     e.preventDefault();
     if (this.state.newName !== this.props.collection.name) {
       try {
-        await addBookToCollection(
+        await modifyCollection(
           this.props.collection._id,
           this.props.collection.items,
           this.state.newName

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withAuth } from "../lib/Auth";
 import {
   createCollectionWithItems,
-  addBookToCollection
+  modifyCollection
 } from "./../lib/collections-services";
 
 /* NOTES 
@@ -29,7 +29,7 @@ class CollectionCloud extends Component {
       e.target.attributes.getNamedItem("bookid").value,
       ...itemList
     );
-    addBookToCollection(e.target.id, newItemList, e.target.name); // collectionId, items, name
+    modifyCollection(e.target.id, newItemList, e.target.name); // collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.forceUpdate();
   };
@@ -41,7 +41,7 @@ class CollectionCloud extends Component {
       e.target.attributes.getNamedItem("bookid").value
     );
     if (i > -1) itemList.splice(i, 1);
-    addBookToCollection(e.target.id, itemList, e.target.name); // collectionId, items, name
+    modifyCollection(e.target.id, itemList, e.target.name); // collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.forceUpdate();
   };

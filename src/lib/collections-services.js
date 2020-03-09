@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrlBE = "http://localhost:5000";
 
-async function addBookToCollection(collectionId, items, name) {
+async function modifyCollection(collectionId, items, name) {
   try {
     return await axios
       .patch(`${baseUrlBE}/collections/id/${collectionId}`, { items, name })
@@ -11,7 +11,7 @@ async function addBookToCollection(collectionId, items, name) {
         console.log(error);
       });
   } catch (error) {
-    console.log("Error in addBookToCollection: ", error);
+    console.log("Error in modifyCollection: ", error);
   }
 }
 
@@ -28,4 +28,4 @@ async function createCollectionWithItems(owner, items, name) {
   }
 }
 
-export { addBookToCollection, createCollectionWithItems };
+export { modifyCollection, createCollectionWithItems };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { addBookToCollection } from "./../lib/collections-services";
+import { modifyCollection } from "./../lib/collections-services";
 import { withAuth } from "./../lib/Auth";
 
 class BookCard extends Component {
@@ -21,7 +21,7 @@ class BookCard extends Component {
     let defaultCollection = this.getdefaultList();
     let newItemList = [];
     newItemList.push(e.target.id, ...defaultCollection.items);
-    addBookToCollection(
+    modifyCollection(
       defaultCollection._id,
       newItemList,
       defaultCollection.name
@@ -35,7 +35,7 @@ class BookCard extends Component {
     let newItemList = defaultCollection.items;
     const i = newItemList.indexOf(e.target.id);
     if (i > -1) newItemList.splice(i, 1);
-    addBookToCollection(
+    modifyCollection(
       defaultCollection._id,
       newItemList,
       defaultCollection.name
