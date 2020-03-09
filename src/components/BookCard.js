@@ -46,6 +46,7 @@ class BookCard extends Component {
   render() {
     return (
       <div key={this.props.book.id}>
+      
         <img
           src={this.props.book.volumeInfo.imageLinks.smallThumbnail}
           alt={this.props.book.volumeInfo.title}

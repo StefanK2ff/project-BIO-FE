@@ -11,7 +11,7 @@ class BookLibraryListing extends Component {
       <div>
         {this.props.loadedBooks.map(book => {
           return (
-            <div>
+            <div key={book.id}>
               <BookCard book={book} />
               <CollectionCloud bookId={book.id} />
             </div>
