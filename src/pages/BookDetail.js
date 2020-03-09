@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { withAuth } from "../lib/Auth";
 import { getBook } from "../lib/bookAPI-helper";
-import {createCollectionWithItems, addBookToCollection} from "../lib/collections-services";
-import CollectionCloud from "./CollectionCloud";
+import CollectionCloud from "../components/CollectionCloud";
 import BookProfile from "../components/BookProfile";
 
 class BookDetail extends Component {
@@ -18,14 +17,17 @@ class BookDetail extends Component {
     this.props.refresh(this.props.user._id);
     const { id } = this.props.match.params;
     let bookProm = getBook(id);
-    bookProm.then(result => this.setState({ book: result, loading: false }));
+    bookProm.then(result => {
+      console.log(result)
+      this.setState({ book: result }, () => this.setState({loading: false}))
+    });
   }
 
   render() {
     if (!this.state.loading) {
       return (
         <div>
-          <BookProfile book={this.props.book} />
+          <BookProfile book={this.state.book} />
 
           <CollectionCloud key={this.state.book.id} bookId={this.state.book.id} />
         </div>

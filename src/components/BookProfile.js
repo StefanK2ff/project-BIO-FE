@@ -1,37 +1,42 @@
 import React from 'react'
 
 export default function BookProfile(props) {
+    console.log(" >>", props)
     const {
         title,
+        subtitle,
         authors,
         publisher,
         publishedDate,
         description,
         imageLinks
-      } = this.props.book.volumeInfo;
+      } = props.book.volumeInfo;
+
     return ( 
         <div>
-           {!imageLinks.small 
+           {!(imageLinks).small 
                ? <img src="images/Image-Coming-Soon.png" alt="" />
-               : <img src={imageLinks.small} alt="" /> }
+               : <img src={(imageLinks).small} alt="" /> }
             <h1>
             {!title
             ? "Without title"
-            : {title}}
+            : title}
             </h1>
+            {!subtitle
+            ? null
+            : <h2>{subtitle}</h2>}
             <h3>
             {!authors
-            ? "Unknown Autohs"
+            ? "Unknown Authors"
             : "From "+ (authors.map(author => author+" "))}
             </h3>
             <p>
-            {
-                !publisher
+            {!publisher
                 ? null
-                : ("Published" (!publishedDate
+                : ("Published " + (!publishedDate
                                 ? null
                                 :publishedDate) +
-               "by" + publisher)
+               " by " + publisher)
             }
           </p>
           {
