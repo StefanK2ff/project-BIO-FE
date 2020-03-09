@@ -1,14 +1,11 @@
 import axios from "axios";
 
-const baseURL = "https://www.googleapis.com/books/v1/volumes";
-const APIkey = "AIzaSyD_mH2FaBJych4OrXJ8OfsnQ1Uwh9z6kHs";
-
 function fullSearch(query, filter, limit) {
   if (!filter) filter=""
   let maxResults = (limit || limit < 40) ? limit : 10;
   if (query.length > 2) {
     return axios
-      .get(`${baseURL}?q=${filter}${query}&key=${APIkey}&maxResults=${maxResults}`)
+      .get(`${process.env.REACT_APP_GOOGLE_API_BASEURL}?q=${filter}${query}&key=${process.env.REACT_APP_GOOGLE_API_KEY}&maxResults=${maxResults}`)
       .then(response => response.data.items)
       .catch(error => {
         console.log(error);
@@ -19,7 +16,7 @@ function fullSearch(query, filter, limit) {
 async function getBook(id) {
   try {
      return await axios
-    .get(`${baseURL}/${id}?&key=${APIkey}`)
+    .get(`${process.env.REACT_APP_GOOGLE_API_BASEURL}/${id}?&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
     .then(response => response.data)
     .catch(error => {
       console.log(error);
