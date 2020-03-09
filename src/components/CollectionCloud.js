@@ -55,6 +55,10 @@ class CollectionCloud extends Component {
   formHandleChange = async e => {
     e.preventDefault();
     let { value, name } = e.target;
+    if (value[value.length-1] === " ") { 
+      value = value.slice(0, -1)
+     }
+    //value = value.slice(1, value.length)
     this.setState({ [name]: value });
   };
 
@@ -82,7 +86,7 @@ class CollectionCloud extends Component {
                 name={collection.name}
                 variant="dark"
               >
-                Remove from {collection.name}
+                Remove from #{collection.name}
               </button>
             );
           } else {
@@ -95,17 +99,18 @@ class CollectionCloud extends Component {
                 name={collection.name}
                 variant="light"
               >
-                Add to {collection.name}
+                Add to #{collection.name}
               </button>
             );
           }
         })}
-        <form>
+        <form>#
           <input
             type="text"
             name="newCollection"
-            placeholder="#newCollection"
+            placeholder="newCollection"
             onChange={this.formHandleChange}
+            value={""+this.state.newCollection}
           />
           <button
             type="submit"
