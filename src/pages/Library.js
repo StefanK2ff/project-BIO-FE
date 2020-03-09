@@ -15,33 +15,34 @@ class Library extends Component {
     nrOfBooksPerLoad: 10
   };
   componentDidMount() {
-    let consolidateBookIds = this.consolidateBookIds();
-    this.setState({ allBookIds: consolidateBookIds }, () => {
-      console.log("1 - ids consolidated");
-    });
+    let consolidateBookIds = this.consolidateBookIds()
+      this.setState({ allBookIds: consolidateBookIds }, () => {
+        console.log("1 - ids consolidated");
+      })
 
     let loadedBooks = this.loadBooks(consolidateBookIds).then(
-      console.log("2 - loaded books are read: ")
+      console.log("2 - loaded books are read ")
     );
+    
     Promise.resolve(loadedBooks).then(result => {
       console.log("resolved loadedBooks", result);
-      this.setState({ loadedBooks: result, loadedBooksDisplay: result }, () => {
+      this.setState({ loadedBooks: result, loadedBooksDisplay: result}, () => {
         console.log("3 - updated the state");
-        console.log(" 4 - books after set state ", this.state.loadedBooks);
-        this.loadhelper();
+        console.log("4 - books after set state ", this.state.loadedBooks);
+        this.loadhelper()
       });
     });
+  //setState({loading: false})
   }
 
   consolidateBookIds = () => {
     let idArray = [];
     this.props.user.collections.forEach(collection => {
-      collection.items.map(item => {
-        idArray.push(item);
-      });
+      collection.items.map(item => idArray.push(item));
     });
     const uniqueIds = new Set(idArray);
     let allBookIds = [...uniqueIds];
+    console.log("allBookIds ", allBookIds)
     return allBookIds;
   };
 
