@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SearchField() {
+export default function SearchField(props) {
   const classes = useStyles();
 
   return (
@@ -30,9 +30,12 @@ export default function SearchField() {
         label="Search for books here"
         variant="outlined"
         fullWidth
+        name="query"
+        value={props.query}
+        onChange={props.handleChange}
         InputProps={{
           startAdornment: (
-            <InputAdornment position="end">
+            <InputAdornment position="start">
               <SearchIcon />
             </InputAdornment>
           ),
@@ -40,23 +43,50 @@ export default function SearchField() {
       />
       <FormControl component="fieldset">
       <FormLabel component="legend">Specify your search here</FormLabel>
-      <RadioGroup aria-label="position" name="position" value="" onChange="" row>
+      <RadioGroup name="searchFilter" row>
         <FormControlLabel
-          value="top"
+          value=""
           control={<Radio color="primary" />}
-          label="label 1"
+          label="All fields"
+          name="searchFilter"
+          checked={props.searchFilter === ""}
+          onChange={props.handleSearchSettings}
           labelPlacement="bottom"
         />
         <FormControlLabel
-          value="top"
+          value="intitle:"
           control={<Radio color="primary" />}
-          label="label 1"
+          label="Only title"
+          name="searchFilter"
+          checked={props.searchFilter === "intitle:"}
+          onChange={props.handleSearchSettings}
           labelPlacement="bottom"
         />
         <FormControlLabel
-          value="top"
+          value="inauthor:"
           control={<Radio color="primary" />}
-          label="label 1"
+          label="Only author"
+          name="searchFilter"
+          checked={props.searchFilter === "inauthor:"}
+          onChange={props.handleSearchSettings}
+          labelPlacement="bottom"
+        />
+        <FormControlLabel
+          value="inpublisher:"
+          control={<Radio color="primary" />}
+          label="Only publisher"
+          name="searchFilter"
+          checked={props.searchFilter === "inpublisher:"}
+          onChange={props.handleSearchSettings}
+          labelPlacement="bottom"
+        />
+        <FormControlLabel
+          value="isbn:"
+          control={<Radio color="primary" />}
+          label="Only ISBN"
+          name="searchFilter"
+          checked={props.searchFilter === "isbn:"}
+          onChange={props.handleSearchSettings}
           labelPlacement="bottom"
         />
         
