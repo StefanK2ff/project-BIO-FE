@@ -17,7 +17,6 @@ class BookLibraryListing extends Component {
     return (
       <div>
         {this.props.loadedBooks.map(book => {
-          console.log(this.props)
           return (
             <div key={book.id}>
               <BookCard book={book} />

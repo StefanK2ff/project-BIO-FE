@@ -17,31 +17,17 @@ class Library extends Component {
 
   componentDidMount() {
     let consolidateId = [];
-    let loadedBooks = [];
-    console.log(this.consolidateBookIds())
-    const result = this.consolidateBookIds()
-      
-        console.log("0 - ids consolidated from Promise ", result);
-        consolidateId = result;
-        this.setState({ allBookIds: consolidateId }, () => {
-          this.loadBooks(consolidateId).then(
-            resultFromAPI => {
-              console.log(">>> ", resultFromAPI[0])
-              this.setState({loadedBooks: resultFromAPI, loadedBooksDisplay: resultFromAPI}, () => this.setState({ loading: false}) )
-            }
-          );
-        }
-        )
-      
+    const result = this.consolidateBookIds();
 
-    // Promise.resolve(loadedBooks).then(result => {
-    //   console.log("resolved loadedBooks", result);
-    //   this.setState({ loadedBooks: result, loadedBooksDisplay: result}, () => {
-    //     console.log("3 - updated the state");
-    //     console.log("4 - books after set state ", this.state.loadedBooks);
-    //this.loadhelper()
-    // });
-    //setState({loading: false})
+    consolidateId = result;
+    this.setState({ allBookIds: consolidateId }, () => {
+      this.loadBooks(consolidateId).then(resultFromAPI => {
+        this.setState(
+          { loadedBooks: resultFromAPI, loadedBooksDisplay: resultFromAPI },
+          () => this.setState({ loading: false })
+        );
+      });
+    });
   }
 
   consolidateBookIds = () => {
@@ -51,7 +37,6 @@ class Library extends Component {
     });
     const uniqueIds = new Set(idArray);
     let allBookIds = [...uniqueIds];
-    console.log("allBookIds from consolidateBookIds Function ", allBookIds);
     return allBookIds;
   };
 
@@ -59,22 +44,8 @@ class Library extends Component {
     const bookPromises = ids.map(id => {
       return getBook(id);
     });
-    return Promise.all(bookPromises)
+    return Promise.all(bookPromises);
   };
-
-  // loadhelper = () => {
-  //   if (this.state.loadedBooks[0] === undefined) {
-  //     console.log("loading");
-  //   } else {
-  //     console.log(this.state.loadedBooks[0]);
-  //   }
-  //   setTimeout(() => {
-  //     this.setState({ loading: false }, () => {
-  //       console.log("5 - set sate to not loading");
-  //       console.log(this.state.loadedBooks[0]);
-  //     });
-  //   }, 5000);
-  // };
 
   filterList = query => {
     let loadedBooksCopy = [...this.state.loadedBooks];
