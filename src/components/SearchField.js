@@ -2,19 +2,20 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import FormControl from "@material-ui/core/FormControl";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import SearchIcon from "@material-ui/icons/Search";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 import FormLabel from "@material-ui/core/FormLabel";
 
 const useStyles = makeStyles(theme => ({
   root: {
     "& > *": {
-      margin: theme.spacing(1)
-      //   width: 200
+      margin: theme.spacing(2)
+
     }
   }
 }));
@@ -23,13 +24,15 @@ export default function SearchField(props) {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <>
+    <Grid item xs={12} className={classes.root}>
       <TextField
         className={classes.margin}
-        id="input-with-icon-textfield"
         label="Search for books here"
         variant="outlined"
         fullWidth
+        noValidate
+        autoComplete="off"
         name="query"
         value={props.query}
         onChange={props.handleChange}
@@ -41,8 +44,10 @@ export default function SearchField(props) {
           )
         }}
       />
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Specify your search here</FormLabel>
+      </Grid>
+     
+      <Grid item xs={12} gutterBottom>
+      <Typography gutterBottom variant="caption">
         <RadioGroup name="searchFilter" row>
           <FormControlLabel
             value=""
@@ -90,7 +95,9 @@ export default function SearchField(props) {
             labelPlacement="bottom"
           />
         </RadioGroup>
-      </FormControl>
-    </form>
+        </Typography>
+        </Grid>
+     
+    </>
   );
 }

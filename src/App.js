@@ -14,37 +14,43 @@ import BookDetail from "./pages/BookDetail";
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
 
-import 'typeface-roboto'
+import "typeface-roboto";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
-import dotenv from "dotenv"
+import Container from "@material-ui/core/Container";
+
+import dotenv from "dotenv";
 
 class App extends Component {
   render() {
     return (
       <div className="container">
-        <Navbar />
+        <React.Fragment>
+          <CssBaseline />
+          <Container maxWidth="md">
+            <Navbar />
 
-        <Switch>
-          <Route exact path="/" component={Home} />
+            <Switch>
+              <Route exact path="/" component={Home} />
 
-          <AnonRoute exact path="/signup" component={Signup} />
-          <AnonRoute exact path="/login" component={Login} />
+              <AnonRoute exact path="/signup" component={Signup} />
+              <AnonRoute exact path="/login" component={Login} />
 
-          <PrivateRoute exact path="/collections" component={MyCollections} />
-          <PrivateRoute
-            exact
-            path="/collections/:id"
-            component={MyCollectionsDetail}
-          />
-          <PrivateRoute exact path="/library" component={Library} />
-          <PrivateRoute exact path="/book/:id" component={BookDetail} />
-        </Switch>
-        {/* <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous"
-        /> */}
+              <PrivateRoute
+                exact
+                path="/collections"
+                component={MyCollections}
+              />
+              <PrivateRoute
+                exact
+                path="/collections/:id"
+                component={MyCollectionsDetail}
+              />
+              <PrivateRoute exact path="/library" component={Library} />
+              <PrivateRoute exact path="/book/:id" component={BookDetail} />
+            </Switch>
+          </Container>
+        </React.Fragment>
       </div>
     );
   }

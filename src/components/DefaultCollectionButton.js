@@ -75,7 +75,7 @@ class DefaultCollectionButton extends Component {
   render() {
     const { _id, name, items } = this.getdefaultList();
     return (
-      <div>
+      <>
         {items.includes(this.props.bookId) ? (
           <Button
             size="small"
@@ -103,7 +103,7 @@ class DefaultCollectionButton extends Component {
             #{name}
           </Button>
         )}
-      </div>
+      </>
     );
   }
 }

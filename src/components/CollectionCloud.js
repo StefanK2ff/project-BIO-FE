@@ -4,6 +4,11 @@ import {
   createCollectionWithItems,
   modifyCollection
 } from "./../lib/collections-services";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 
 /* NOTES 
     This modulre requires following Data
@@ -55,9 +60,9 @@ class CollectionCloud extends Component {
   formHandleChange = async e => {
     e.preventDefault();
     let { value, name } = e.target;
-    if (value[value.length-1] === " ") { 
-      value = value.slice(0, -1)
-     }
+    if (value[value.length - 1] === " ") {
+      value = value.slice(0, -1);
+    }
     //value = value.slice(1, value.length)
     this.setState({ [name]: value });
   };
@@ -69,58 +74,76 @@ class CollectionCloud extends Component {
       [e.target.attributes.getNamedItem("bookid").value],
       this.state.newCollection
     ); //owner, items, name
-    this.setState({newCollection: ""}, () => this.props.refresh(this.props.user._id));
+    this.setState({ newCollection: "" }, () =>
+      this.props.refresh(this.props.user._id)
+    );
   };
 
   render() {
     return (
-      <div>
-        {this.props.user.collections.map(collection => {
-          if (collection.items.includes(this.props.bookId)) {
-            return (
-              <button
-                key={collection._id}
-                onClick={this.removeFromCollection}
-                id={collection._id}
-                bookid={this.props.bookId}
-                name={collection.name}
-                variant="dark"
-              >
-                Remove from #{collection.name}
-              </button>
-            );
-          } else {
-            return (
-              <button
-                key={collection._id}
-                onClick={this.addToCollection}
-                id={collection._id}
-                bookid={this.props.bookId}
-                name={collection.name}
-                variant="light"
-              >
-                Add to #{collection.name}
-              </button>
-            );
-          }
-        })}
-        <form>#
-          <input
-            type="text"
-            name="newCollection"
-            placeholder="newCollection"
-            onChange={this.formHandleChange}
-            value={""+this.state.newCollection}
-          />
-          <button
-            type="submit"
-            bookid={this.props.bookId}
-            onClick={this.addToNewColl}
-          >
-            Create + add
-          </button>
-        </form>
-      </div>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Paper>
+            <Grid item cs={12}>
+              <Typography variant="caption">
+                Click to add or remove from your collections:
+              </Typography>
+            </Grid>
+            <Grid item cs={12}>
+              {this.props.user.collections.map(collection => {
+                if (collection.items.includes(this.props.bookId)) {
+                  return (
+                    <Button
+                      size="small"
+                      color="primary"
+                      key={collection._id}
+                      onClick={this.removeFromCollection.bind()}
+                      id={collection._id}
+                      bookid={this.props.bookId}
+                      name={collection.name}
+                      variant="contained"
+                    >
+                      #{collection.name}
+                    </Button>
+                  );
+                } else {
+                  return (
+                    <Button
+                      key={collection._id}
+                      onClick={this.addToCollection.bind()}
+                      id={collection._id}
+                      bookid={this.props.bookId}
+                      name={collection.name}
+                      variant="outlined"
+                      size="small"
+                      color="primary"
+                    >
+                      #{collection.name}
+                    </Button>
+                  );
+                }
+              })}
+              <form>
+                #
+                <input
+                  type="text"
+                  name="newCollection"
+                  placeholder="newCollection"
+                  onChange={this.formHandleChange}
+                  value={"" + this.state.newCollection}
+                />
+                <button
+                  type="submit"
+                  bookid={this.props.bookId}
+                  onClick={this.addToNewColl}
+                >
+                  Create + add
+                </button>
+              </form>
+            </Grid>
+          </Paper>
+        </Grid>
+      </Grid>
     );
   }
 }

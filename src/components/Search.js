@@ -4,15 +4,16 @@ import BookCard from "./BookCard";
 import { withAuth } from "./../lib/Auth";
 import SearchField from "./SearchField";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import { spacing } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
+    "& > *": {
+      margin: theme.spacing(1)
+    }
+  }
 }));
 
 class Search extends Component {
@@ -53,81 +54,107 @@ class Search extends Component {
     console.log(e.taget);
     this.setState({ searchFilter: e.target.value });
   };
-//xs, sm, md, lg, and xl
+  //xs, sm, md, lg, and xl
   render() {
     return (
       <div>
-      <Grid
+        <Grid
+          container
+          spacing={0}
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-start"
+        >
+        
+        <SearchField
+            handleChange={this.formHandleChange}
+            query={this.state.query}
+            searchFilter={this.state.searchFilter}
+            handleSearchSettings={this.handleSearchSettings}
+          />
+        
+        
+        </Grid>
+
+        <Grid
+        mt="2em"
+        mb="2em"
           container
           spacing={2}
           direction="row"
           justify="flex-start"
           alignItems="flex-start">
+          
+        
+          
 
-        <SearchField
-          handleChange={this.formHandleChange}
-          query={this.state.query}
-          searchFilter={this.state.searchFilter}
-          handleSearchSettings={this.handleSearchSettings}
-        />
-        
-        
           {this.state.visibleResults.map(book => {
             return (
-              <Grid item xs={6} sm={4} md={3} lg={2} key={book.id}>
-              
+              <Grid item xs={6} sm={4} md={3} lg={2} key={book.id} >
                 <BookCard book={book} showDefault={true} />
               </Grid>
             );
           })}
-        
-        {this.state.results.length > 3 ? (
-          !this.state.expandedSearch ? (
-            <Button variant="contained" color="primary" onClick={this.toggleExpandedSearch}>
-            Show more results
-            </Button>
-            
-          ) : (
-            <Button variant="contained" color="primary" onClick={this.toggleExpandedSearch}>
-            Show less results
-            </Button>
-          )
-        ) : null}
+          </Grid>
 
-        {!this.state.expandedSearch
-        
-        
-        ? (this.props.user 
-            ? (<><Grid item xs={12} >
-              <Button variant="contained" color="secondary">
-                Go to collections
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          spacing={2}
+          
+        >
+          {this.state.results.length > 3 ? (
+            !this.state.expandedSearch ? (
+              <Button
+                mt={4}
+                variant="contained"
+                color="primary"
+                onClick={this.toggleExpandedSearch}
+              >
+                Show more results
               </Button>
-            </Grid>
-            <Grid item xs={12} >
-              <Button variant="contained" color="secondary">
-                Go to library
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.toggleExpandedSearch}
+              >
+                Show less results
               </Button>
-            </Grid></>)
-            : (<>
-            <Grid item xs={12} >
-              <Button variant="contained" color="secondary">
-                Login
-              </Button>
-            </Grid>
-            <Grid item xs={12} >
-              <Button variant="contained" color="secondary">
-                Signup
-              </Button>
-            </Grid>
-
-            </>)
             )
-        
-        
-        : null}
-        
-        
-        
+          ) : null}
+
+          {!this.state.expandedSearch ? (
+            this.props.user ? (
+              <>
+                <Grid item xs={12}>
+                  <Button variant="contained" color="secondary">
+                    Go to collections
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button variant="contained" color="secondary">
+                    Go to library
+                  </Button>
+                </Grid>
+              </>
+            ) : (
+              <>
+                <Grid item xs={12}>
+                  <Button variant="contained" color="secondary">
+                    Login
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button variant="contained" color="secondary">
+                    Signup
+                  </Button>
+                </Grid>
+              </>
+            )
+          ) : null}
         </Grid>
       </div>
     );
@@ -135,5 +162,3 @@ class Search extends Component {
 }
 
 export default withAuth(Search);
-
-
