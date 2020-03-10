@@ -4,6 +4,7 @@ import BookCard from "./BookCard";
 import { withAuth } from "./../lib/Auth";
 import DefaultCollectionButton from "./DefaultCollectionButton";
 import { Link } from "react-router-dom";
+import SearchField from "./SearchField";
 
 class Search extends Component {
   state = {
@@ -46,7 +47,8 @@ class Search extends Component {
   render() {
     return (
       <div>
-        <h2>Search</h2>
+        
+        <SearchField />
         <form>
           <input
             type="text"
