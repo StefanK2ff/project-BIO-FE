@@ -53,38 +53,63 @@ function Navbar(props) {
       {props.isLoggedIn ? (
         <List>
           <Typography className={classes.root}>
+            <ListItem button key={"Search"} component={Link} to="/">
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Search (Home)"} />
+            </ListItem>
+
             <ListItem
               button
               key={"My Collections"}
               component={Link}
               to="/collections"
             >
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
               <ListItemText primary={"My Collections"} />
             </ListItem>
 
             <ListItem button key={"My Library"} component={Link} to="/library">
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
               <ListItemText primary={"My Library"} />
             </ListItem>
 
             <Divider />
 
             <ListItem button key={"Logout"} onClick={props.logout}>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
               <ListItemText primary={"Logout"} />
             </ListItem>
           </Typography>
         </List>
       ) : (
         <List>
+          <ListItem button key={"Search"} component={Link} to="/">
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Search (Home)"} />
+          </ListItem>
+          <Divider />
+
           <ListItem button key={"Login"} component={Link} to="/login">
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
             <ListItemText primary={"Login"} />
           </ListItem>
 
           <ListItem button key={"Sign Up"} component={Link} to="/signup">
-            <ListItemIcon><InboxIcon /></ListItemIcon>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
             <ListItemText primary={"Sign Up"} />
           </ListItem>
         </List>

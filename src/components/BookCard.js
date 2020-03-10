@@ -14,7 +14,7 @@ import DefaultCollectionButton from "./DefaultCollectionButton";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 250
+    
   }
 });
 

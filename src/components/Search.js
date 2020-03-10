@@ -2,9 +2,18 @@ import React, { Component } from "react";
 import { fullSearch } from "./../lib/bookAPI-helper";
 import BookCard from "./BookCard";
 import { withAuth } from "./../lib/Auth";
-import DefaultCollectionButton from "./DefaultCollectionButton";
-import { Link } from "react-router-dom";
 import SearchField from "./SearchField";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 class Search extends Component {
   state = {
@@ -41,45 +50,90 @@ class Search extends Component {
   };
 
   handleSearchSettings = e => {
-    console.log(e.taget)
+    console.log(e.taget);
     this.setState({ searchFilter: e.target.value });
   };
-
+//xs, sm, md, lg, and xl
   render() {
     return (
       <div>
+      <Grid
+          container
+          spacing={2}
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-start">
+
         <SearchField
           handleChange={this.formHandleChange}
           query={this.state.query}
           searchFilter={this.state.searchFilter}
           handleSearchSettings={this.handleSearchSettings}
-          />
+        />
+        
         
           {this.state.visibleResults.map(book => {
             return (
-              <div key={book.id}>
-                <BookCard  book={book} showDefault={true} />
-                
-              </div>
+              <Grid item xs={6} sm={4} md={3} lg={2} key={book.id}>
+              
+                <BookCard book={book} showDefault={true} />
+              </Grid>
             );
           })}
-          {this.state.results.length > 3 ? (
-            !this.state.expandedSearch ? (
-              <button onClick={this.toggleExpandedSearch}>
-                Show more results
-              </button>
-            ) : (
-              <button onClick={this.toggleExpandedSearch}>
-                Show less results
-              </button>
-            )
-          ) : null}
-
-          {!this.state.expandedSearch ? "some additional control" : null}
         
+        {this.state.results.length > 3 ? (
+          !this.state.expandedSearch ? (
+            <Button variant="contained" color="primary" onClick={this.toggleExpandedSearch}>
+            Show more results
+            </Button>
+            
+          ) : (
+            <Button variant="contained" color="primary" onClick={this.toggleExpandedSearch}>
+            Show less results
+            </Button>
+          )
+        ) : null}
+
+        {!this.state.expandedSearch
+        
+        
+        ? (this.props.user 
+            ? (<><Grid item xs={12} >
+              <Button variant="contained" color="secondary">
+                Go to collections
+              </Button>
+            </Grid>
+            <Grid item xs={12} >
+              <Button variant="contained" color="secondary">
+                Go to library
+              </Button>
+            </Grid></>)
+            : (<>
+            <Grid item xs={12} >
+              <Button variant="contained" color="secondary">
+                Login
+              </Button>
+            </Grid>
+            <Grid item xs={12} >
+              <Button variant="contained" color="secondary">
+                Signup
+              </Button>
+            </Grid>
+
+            </>)
+            )
+        
+        
+        : null}
+        
+        
+        
+        </Grid>
       </div>
     );
   }
 }
 
 export default withAuth(Search);
+
+
