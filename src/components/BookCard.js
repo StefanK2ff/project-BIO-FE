@@ -1,40 +1,61 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
 import { withAuth } from "./../lib/Auth";
 
-class BookCard extends Component {
-  render() {
-    return (
-      <div key={this.props.book.id}>
-        <Link to={`/book/${this.props.book.id}`}>
-          {!this.props.book.volumeInfo.imageLinks ? (
-            <img src="images/Image-Coming-Soon.png" alt="" />
-          ) : (
-            <img
-              src={this.props.book.volumeInfo.imageLinks.smallThumbnail}
-              alt=""
-            />
-          )}
-        </Link>
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { Link } from "react-router-dom";
 
-        <strong>
-          {!this.props.book.volumeInfo.title
-            ? "Without title"
-            : this.props.book.volumeInfo.title}
-        </strong>
-        {!this.props.book.volumeInfo.subtitle ? null : (
-          <p>{this.props.book.volumeInfo.subtitle}</p>
-        )}
-        <p>
-          {!this.props.book.volumeInfo.authors
-            ? "Unknown Authors"
-            : "From " +
-              this.props.book.volumeInfo.authors.map(author => author + " ")}
-        </p>
-      </div>
-    );
-  }
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 250,
+  },
+});
+
+function BookCard(props) {
+  const classes = useStyles();
+
+  const imageLink = !props.book.volumeInfo.imageLinks ? "images/Image-Coming-Soon.png" : props.book.volumeInfo.imageLinks.thumbnail
+  const title = !props.book.volumeInfo.title ? "Without title" : props.book.volumeInfo.title
+  const releaseInfoFull = !props.book.volumeInfo.authors ? "Unknown Authors" : props.book.volumeInfo.authors.map(author => " "+ author)
+  const releseInfoCropped = releaseInfoFull.length > 40 ? releaseInfoFull.slice(40,releaseInfoFull.length) + "..." : releaseInfoFull
+
+
+  return (
+    <Card className={classes.root} key={props.book.id}>
+      <CardActionArea component={Link} to={`/book/${props.book.id}`}>
+        <CardMedia
+          component="img"
+          alt={title}
+          height="250"
+          image={imageLink}
+          title={title}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+          {title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {releseInfoCropped}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+        <Button size="small" color="primary">
+          Learn More
+        </Button>
+      </CardActions>
+    </Card>
+  );
 }
 
 export default withAuth(BookCard);
+

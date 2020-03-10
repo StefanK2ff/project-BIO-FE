@@ -10,10 +10,11 @@ import Library from "./pages/Library";
 import MyCollections from "./pages/MyCollections";
 import MyCollectionsDetail from "./pages/MyCollectionsDetail";
 import BookDetail from "./pages/BookDetail";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
+
+import 'typeface-roboto'
 
 import dotenv from "dotenv"
 

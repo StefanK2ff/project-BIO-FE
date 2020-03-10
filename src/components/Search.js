@@ -48,7 +48,6 @@ class Search extends Component {
   render() {
     return (
       <div>
-        
         <SearchField
           handleChange={this.formHandleChange}
           query={this.state.query}
@@ -56,8 +55,6 @@ class Search extends Component {
           handleSearchSettings={this.handleSearchSettings}
           />
         
-        <h2>Result</h2>
-        <ul>
           {this.state.visibleResults.map(book => {
             return (
               <div key={book.id}>
@@ -86,7 +83,7 @@ class Search extends Component {
           ) : null}
 
           {!this.state.expandedSearch ? "some additional control" : null}
-        </ul>
+        
       </div>
     );
   }
