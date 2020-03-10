@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withAuth } from "../lib/Auth";
 import { modifyCollection } from "./../lib/collections-services";
 import Button from "@material-ui/core/Button";
+import { Typography } from "@material-ui/core";
 
 /* 
     This Component needs
@@ -76,12 +77,13 @@ class DefaultCollectionButton extends Component {
     const { _id, name, items } = this.getdefaultList();
     return (
       <>
+      
         {items.includes(this.props.bookId) ? (
           <Button
             size="small"
             color="primary"
             key={_id}
-            onClick={this.removeFromCollection}
+            onClick={this.removeFromCollection.bind(_id)}
             id={_id}
             bookid={this.props.bookId}
             name={name}

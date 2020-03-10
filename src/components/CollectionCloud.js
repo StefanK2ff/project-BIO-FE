@@ -8,7 +8,8 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from '@material-ui/core/Box'
+import { spacing } from '@material-ui/system'
 
 /* NOTES 
     This modulre requires following Data
@@ -29,10 +30,7 @@ class CollectionCloud extends Component {
   addToCollection = (id, name) => {
     let itemList = this.getItemList(id);
     let newItemList = [];
-    newItemList.push(
-      this.props.bookId,
-      ...itemList
-    );
+    newItemList.push(this.props.bookId, ...itemList);
     modifyCollection(id, newItemList, name); // collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.forceUpdate();
@@ -40,9 +38,7 @@ class CollectionCloud extends Component {
 
   removeFromCollection = (id, name) => {
     let itemList = this.getItemList(id);
-    const i = itemList.indexOf(
-      this.props.bookId
-    );
+    const i = itemList.indexOf(this.props.bookId);
     if (i > -1) itemList.splice(i, 1);
     modifyCollection(id, itemList, name); // collectionId, items, name
     this.props.refresh(this.props.user._id);
@@ -65,11 +61,11 @@ class CollectionCloud extends Component {
     this.setState({ [name]: value });
   };
 
-  addToNewColl = e => {
+  addToNewColl = (e) => {
     e.preventDefault();
     createCollectionWithItems(
       this.props.user._id,
-      [e.target.attributes.getNamedItem("bookid").value],
+      [this.props.bookId],
       this.state.newCollection
     ); //owner, items, name
     this.setState({ newCollection: "" }, () =>
@@ -82,64 +78,94 @@ class CollectionCloud extends Component {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper>
+          <Box p="20px">
             <Grid item cs={12}>
               <Typography variant="caption">
                 Click to add or remove from your collections:
               </Typography>
             </Grid>
             <Grid item cs={12}>
-              {this.props.user.collections.map(collection => {
-                if (collection.items.includes(this.props.bookId)) {
-                  let collId = collection._id
-                  return (
-                    <Button
-                      size="small"
-                      color="primary"
-                      key={collection._id}
-                      onClick={() => this.removeFromCollection(collection._id, collection.name)}
-                      id={collection._id}
-                      bookid={this.props.bookId}
-                      name={collection.name}
-                      variant="contained"
-                    >
-                      #{collection.name}
-                    </Button>
-                  );
-                } else {
-                  return (
-                    <Button
-                      key={collection._id}
-                      onClick={() => this.addToCollection(collection._id, collection.name)}
-                      id={collection._id}
-                      bookid={this.props.bookId}
-                      name={collection.name}
-                      variant="outlined"
-                      size="small"
-                      color="primary"
-                    >
-                      #{collection.name}
-                    </Button>
-                  );
-                }
-              })}
-              <form>
-                #
-                <input
-                  type="text"
-                  name="newCollection"
-                  placeholder="newCollection"
-                  onChange={this.formHandleChange}
-                  value={"" + this.state.newCollection}
-                />
-                <button
-                  type="submit"
-                  bookid={this.props.bookId}
-                  onClick={this.addToNewColl}
-                >
-                  Create + add
-                </button>
-              </form>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+              >
+                {this.props.user.collections.map(collection => {
+                  if (collection.items.includes(this.props.bookId)) {
+                    return (
+                      <Box mr="15px" my="5px">
+                      <Button
+                        size="small"
+                        color="primary"
+                        key={collection._id}
+                        onClick={() =>
+                          this.removeFromCollection(
+                            collection._id,
+                            collection.name
+                          )
+                        }
+                        id={collection._id}
+                        bookid={this.props.bookId}
+                        name={collection.name}
+                        variant="contained"
+                      >
+                        #{collection.name}
+                      </Button>
+                      </Box>
+                    );
+                  } else {
+                    return (
+                      <Box mr="15px" my="5px">
+                      <Button
+                        key={collection._id}
+                        onClick={() =>
+                          this.addToCollection(collection._id, collection.name)
+                        }
+                        id={collection._id}
+                        bookid={this.props.bookId}
+                        name={collection.name}
+                        variant="outlined"
+                        size="small"
+                        color="primary"
+                      >
+                        #{collection.name}
+                      </Button>
+                      </Box>
+                    );
+                  }
+                })}
+                <Box mr="15px" my="5px">
+                <Button variant="outlined"
+                        size="small"
+                        color="primary"
+                        >
+                <form>
+                  #
+                  <input
+                    type="text"
+                    name="newCollection"
+                    className="hiddenAddField"
+                    placeholder="newCollection"
+                    onChange={this.formHandleChange}
+                    value={"" + this.state.newCollection}
+                  />
+                  <button
+                    type="submit"
+                    bookid={this.props.bookId}
+                    onClick={this.addToNewColl}
+                  >
+                    <Typography>
+                    ADD
+                    </Typography>
+                  </button>
+                  
+                </form>
+                </Button>
+                </Box>
+              </Grid>
             </Grid>
+            </Box>
           </Paper>
         </Grid>
       </Grid>

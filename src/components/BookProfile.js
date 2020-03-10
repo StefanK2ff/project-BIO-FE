@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import {getImage} from "./../lib/bookAPI-helper"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +30,6 @@ export default function BookProfile(props) {
 
   const classes = useStyles();
   return (
-    //<div className={classes.root}>
       
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -39,7 +39,7 @@ export default function BookProfile(props) {
                   {!imageLinks.small ? (
                     <img src="images/Image-Coming-Soon.png" alt="" />
                   ) : (
-                    <img src={imageLinks.small} alt="" />
+                    <img src={getImage(imageLinks.small)} alt="" />
                   )}
                 </Grid>
                 <Grid item xs={12} md={6} id={"textContainer"}>
@@ -85,6 +85,5 @@ export default function BookProfile(props) {
           </Grid>
         </Grid>
       
-    //</div>
   );
 }
