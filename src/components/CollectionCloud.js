@@ -26,27 +26,25 @@ class CollectionCloud extends Component {
     newCollection: ""
   };
 
-  addToCollection = e => {
-    e.preventDefault();
-    let itemList = this.getItemList(e.target.id);
+  addToCollection = (id, name) => {
+    let itemList = this.getItemList(id);
     let newItemList = [];
     newItemList.push(
-      e.target.attributes.getNamedItem("bookid").value,
+      this.props.bookId,
       ...itemList
     );
-    modifyCollection(e.target.id, newItemList, e.target.name); // collectionId, items, name
+    modifyCollection(id, newItemList, name); // collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.forceUpdate();
   };
 
-  removeFromCollection = e => {
-    e.preventDefault();
-    let itemList = this.getItemList(e.target.id);
+  removeFromCollection = (id, name) => {
+    let itemList = this.getItemList(id);
     const i = itemList.indexOf(
-      e.target.attributes.getNamedItem("bookid").value
+      this.props.bookId
     );
     if (i > -1) itemList.splice(i, 1);
-    modifyCollection(e.target.id, itemList, e.target.name); // collectionId, items, name
+    modifyCollection(id, itemList, name); // collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.forceUpdate();
   };
@@ -92,12 +90,13 @@ class CollectionCloud extends Component {
             <Grid item cs={12}>
               {this.props.user.collections.map(collection => {
                 if (collection.items.includes(this.props.bookId)) {
+                  let collId = collection._id
                   return (
                     <Button
                       size="small"
                       color="primary"
                       key={collection._id}
-                      onClick={this.removeFromCollection.bind()}
+                      onClick={() => this.removeFromCollection(collection._id, collection.name)}
                       id={collection._id}
                       bookid={this.props.bookId}
                       name={collection.name}
@@ -110,7 +109,7 @@ class CollectionCloud extends Component {
                   return (
                     <Button
                       key={collection._id}
-                      onClick={this.addToCollection.bind()}
+                      onClick={() => this.addToCollection(collection._id, collection.name)}
                       id={collection._id}
                       bookid={this.props.bookId}
                       name={collection.name}
