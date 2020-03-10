@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withAuth } from "../lib/Auth";
 import { modifyCollection } from "./../lib/collections-services";
+import Button from "@material-ui/core/Button";
 
 /* 
     This Component needs
@@ -28,9 +29,10 @@ class DefaultCollectionButton extends Component {
   }
 
   getdefaultList = () => {
-    return this.props.user.collections.filter(oneCol => {
+    const result = this.props.user.collections.filter(oneCol => {
       return oneCol.default === true;
-    })[0]; // Important: Just one default collection
+    })[0];
+    return result; // Important: Just one default collection
   };
 
   onDefaulftList = () => {
@@ -38,28 +40,28 @@ class DefaultCollectionButton extends Component {
     return defaultItems.includes(this.props.bookId);
   };
 
-
   addToCollection = e => {
-    e.preventDefault();
-    let itemList = this.getItemList(e.target.id);
+    let itemList = this.getItemList(this.state.defaultCollection._id);
     let newItemList = [];
-    newItemList.push(
-      e.target.attributes.getNamedItem("bookid").value,
-      ...itemList
-    );
-    modifyCollection(e.target.id, newItemList, e.target.name); // collectionId, items, name
+    newItemList.push(this.props.bookId, ...itemList);
+    modifyCollection(
+      this.state.defaultCollection._id,
+      newItemList,
+      this.state.defaultCollection.name
+    ); // collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.forceUpdate();
   };
 
   removeFromCollection = e => {
-    e.preventDefault();
-    let itemList = this.getItemList(e.target.id);
-    const i = itemList.indexOf(
-      e.target.attributes.getNamedItem("bookid").value
-    );
+    let itemList = this.getItemList(this.state.defaultCollection._id);
+    const i = itemList.indexOf(this.props.bookId);
     if (i > -1) itemList.splice(i, 1);
-    modifyCollection(e.target.id, itemList, e.target.name); // collectionId, items, name
+    modifyCollection(
+      this.state.defaultCollection._id,
+      itemList,
+      this.state.defaultCollection.name
+    ); // collectionId, items, name
     this.props.refresh(this.props.user._id);
     this.forceUpdate();
   };
@@ -70,40 +72,37 @@ class DefaultCollectionButton extends Component {
     })[0].items;
   };
 
-
   render() {
-    const {_id, name, items} = this.getdefaultList()
+    const { _id, name, items } = this.getdefaultList();
     return (
       <div>
-        { items.includes(this.props.bookId) 
-            ?  (
-              <button
-                key={_id}
-                onClick={this.removeFromCollection}
-                id={_id}
-                bookid={this.props.bookId}
-                name={name}
-                variant="dark"
-              >
-                Remove from #{name}
-              </button>
-            )
-          
-           :  (
-              <button
-                key={_id}
-                onClick={this.addToCollection}
-                id={_id}
-                bookid={this.props.bookId}
-                name={name}
-                variant="light"
-              >
-                Add to #{name}
-              </button>
-            )
-          }
-        
-        
+        {items.includes(this.props.bookId) ? (
+          <Button
+            size="small"
+            color="primary"
+            key={_id}
+            onClick={this.removeFromCollection}
+            id={_id}
+            bookid={this.props.bookId}
+            name={name}
+            variant="contained"
+          >
+            #{name}
+          </Button>
+        ) : (
+          <Button
+            key={_id}
+            onClick={this.addToCollection.bind(_id)}
+            id={_id}
+            bookid={this.props.bookId}
+            name={name}
+            variant="outlined"
+            size="small"
+            color="primary"
+          >
+            #{name}
+          </Button>
+        )}
       </div>
     );
   }

@@ -58,15 +58,8 @@ class Search extends Component {
           {this.state.visibleResults.map(book => {
             return (
               <div key={book.id}>
-                <BookCard  book={book} />
-                {this.props.user ? (
-                  
-                  <DefaultCollectionButton bookId={book.id} />
-                ) : (
-                  <Link to="/login">
-                    log in to add this book to your library.
-                  </Link>
-                )}
+                <BookCard  book={book} showDefault={true} />
+                
               </div>
             );
           })}
