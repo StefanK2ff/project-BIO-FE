@@ -11,7 +11,6 @@ function Home() {
     <Typography paragraph variant="subtitle1">
     Manage your books <strong>as easy as never before</strong>.
     </Typography>
-      
     <Search />
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { modifyCollection } from "./../lib/collections-services";
+import { modifyCollection, deleteCollection } from "./../lib/collections-services";
 import BookListUnderCol from "./BookListUnderCol";
 import { withAuth } from "./../lib/Auth";
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -49,6 +49,11 @@ class CollectionCard extends Component {
     panelId === this.state.expanded ? this.setState({expanded : ""}) : this.setState({expanded : panelId})
   };
 
+  deleteCollection = () => {
+    deleteCollection(this.props.collection._id)
+    this.props.refresh(this.props.user._id);
+  }
+
   render() {
     const { name, items, _id} = this.props.collection;
     return (
@@ -68,7 +73,8 @@ class CollectionCard extends Component {
           <Typography>
               {(this.state.expanded && items.length > 0)
               ?<BookListUnderCol key={_id} collid={_id} collName={name} items={items} />
-              : (<Box><p>"No books in that collection."</p> <Button> Delete?</Button></Box>)}
+              : (<Box><p>"No books in that collection."</p>
+                <Button variant="contained" color="primary" onClick={this.deleteCollection}> Delete?</Button></Box>)}
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>      

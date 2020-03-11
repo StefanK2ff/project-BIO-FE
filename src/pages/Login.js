@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { withAuth } from "./../lib/Auth";
+import { Link } from "react-router-dom";
+
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 class Login extends Component {
   state = { email: "", password: "" };
@@ -21,26 +27,53 @@ class Login extends Component {
 
     return (
       <div>
-        <h1>Login</h1>
-
-        <form onSubmit={this.handleFormSubmit}>
-          <label>email:</label>
-          <input
-            type="text"
+        <Typography component="h1" variant="h5">
+          Welcome back! Log in here
+        </Typography>
+        <form noValidate onSubmit={this.handleFormSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
             name="email"
+            autoComplete="email"
+            autoFocus
+            type="text"
             value={email}
             onChange={this.handleChange}
           />
-
-          <label>Password:</label>
-          <input
-            type="password"
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
             value={password}
             onChange={this.handleChange}
           />
 
-          <input type="submit" value="Login" />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            value="Signup"
+          >
+            Login
+          </Button>
+          <Grid container>
+            <Grid item>
+              <p>Don't have an account?</p>
+              <Link to={"/signup"}> Sign up</Link>
+            </Grid>
+          </Grid>
         </form>
       </div>
     );
