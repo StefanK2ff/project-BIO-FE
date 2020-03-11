@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {getImage} from "./../lib/bookAPI-helper"
 import Box from '@material-ui/core/Box'
-import Button from "@material-ui/core/Button";
 
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
