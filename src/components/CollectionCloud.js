@@ -80,7 +80,7 @@ class CollectionCloud extends Component {
           <Box p="20px">
             <Grid item cs={12}>
               <Typography variant="caption">
-                Click to add or remove from your collections:
+                Click to add / remove from collections
               </Typography>
             </Grid>
             <Grid item cs={12}>

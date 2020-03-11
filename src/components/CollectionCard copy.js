@@ -60,7 +60,7 @@ class CollectionCard extends Component {
           </div>
         ) : (
           <div>
-            <button onClick={this.nameEditField}>Edit name</button> {name}, with{" "}
+            <button >Edit name</button> {name}, with{" "}
             {items.length} item(s){" "}
           </div>
         )}

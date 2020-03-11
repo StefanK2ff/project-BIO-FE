@@ -11,6 +11,9 @@ import Divider from "@material-ui/core/Divider";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CheckIcon from "@material-ui/icons/Check";
+import EditIcon from "@material-ui/icons/Edit";
+import ClearIcon from "@material-ui/icons/Clear";
 
 class BookListUnderCol extends Component {
   state = {
@@ -106,24 +109,58 @@ class BookListUnderCol extends Component {
           "Currently loading"
         ) : (
           <>
-            <List>
-              <ListItem>
+            <List className="Class100">
+              <ListItem ClassName="collectionListing">
+                {!this.props.editModeActive ? (
+                  <>
+                    <ListItemText primary="Click to edit the name" />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        edge="start"
+                        onClick={this.props.enabelEdit}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </>
+                ) : this.props.newName !== this.props.collName ? (
+                  <>
+                    <ListItemText primary="Save new Name" />
+                    <ListItemSecondaryAction>
+                      <IconButton edge="start" onClick={this.props.saveName}>
+                        <CheckIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </>
+                ) : (
+                  <>
+                    <ListItemText primary="Keep Name" />
+                    <ListItemSecondaryAction>
+                      <IconButton edge="start" onClick={this.props.saveName}>
+                        <CheckIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </>
+                )}
+              </ListItem>
+
+              <ListItem ClassName="collectionListing">
                 {this.state.edited ? (
                   <>
-                  <ListItemText primary="Click to onfirm deletion" />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="start" onClick={this.saveChanges}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+                    <ListItemText primary="Click to onfirm deletion" />
+                    <ListItemSecondaryAction>
+                      <IconButton edge="start" onClick={this.saveChanges}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
                   </>
                 ) : (
                   <ListItemText primary="Mark your books for removal" />
                 )}
               </ListItem>
-            </List>
+            
             <Divider />
-            <List>
+            
               {this.state.itemsResolved.map(book => {
                 return (
                   <BookLineUnderCol

@@ -180,3 +180,8 @@ select[multiple]
 	/* Move the label to the top */
 	vertical-align:top;
 }
+
+
+.Class100 {
+	width: 100%
+}

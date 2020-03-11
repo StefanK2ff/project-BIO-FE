@@ -67,7 +67,6 @@ class Search extends Component {
 
         <Box my="15px">
         <Grid
-
           container
           spacing={2}
           direction="row"
@@ -76,7 +75,7 @@ class Search extends Component {
         >
           {this.state.visibleResults.map(book => {
             return (
-              <Grid item xs={6} sm={4} md={3} lg={2} key={book.id}>
+              <Grid item xs={12} sm={6} md={4} key={book.id}>
                 <BookCard book={book} showDefault={true} />
               </Grid>
             );

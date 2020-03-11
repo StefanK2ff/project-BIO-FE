@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import BookCard from "./BookCard";
 import { withAuth } from "./../lib/Auth";
+import Box from '@material-ui/core/Box'
 
 import CollectionCloud from "./CollectionCloud";
+import Grid from "@material-ui/core/Grid";
 
 class BookLibraryListing extends Component {
   state = {
@@ -15,16 +17,21 @@ class BookLibraryListing extends Component {
   }
   render() {
     return (
-      <div>
+      <Grid container spacing={3}>
         {this.props.loadedBooks.map(book => {
           return (
-            <div key={book.id}>
-              <BookCard book={book} />
+            
+            <Grid item xs={12} sm={6} md={4} key={book.id}>
+            
+              <BookCard book={book} showDefaul={false}/>
+              <Box my="10px">
               <CollectionCloud bookId={book.id} />
-            </div>
+              </Box>
+            </Grid>
+            
           );
         })}
-      </div>
+        </Grid>
     );
   }
 }

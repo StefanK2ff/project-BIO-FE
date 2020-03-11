@@ -59,7 +59,6 @@ class Library extends Component {
     return (
       <>
         <h1>My Library</h1>
-        <h2>See all your books, {this.props.user.email}</h2>
         {this.state.loading ? (
           "Books are getting loaded"
         ) : (

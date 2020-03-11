@@ -57,7 +57,7 @@ function BookCard(props) {
       <CardActions>
         {props.user && props.showDefault ? (
           <DefaultCollectionButton bookId={props.book.id} />
-        ) : (
+        ) : ( props.user && !props.showDefault ? null :
           <Button size="small" color="secondary" component={Link} to="/login">
             log in to continue
           </Button>
