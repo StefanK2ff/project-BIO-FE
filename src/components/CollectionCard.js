@@ -12,41 +12,35 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+
 
 class CollectionCard extends Component {
   state = {
-    newName: "",
     editmode: false,
     expanded: ""
   };
 
   nameEditField = e => {
     e.preventDefault();
-    this.setState({ editmode: true, newName: this.props.collection.name }); // anti pattern - ok?
+    this.setState({ editmode: true }); // anti pattern - ok?
   };
 
-  formHandleChange = e => {
-    e.preventDefault();
-    let { value, name } = e.target;
-    this.setState({ [name]: value });
-  };
+  
 
-  saveName = async e => {
-    e.preventDefault();
-    if (this.state.newName !== this.props.collection.name) {
+  saveName = async (newName) => {
+    if (newName !== this.props.collection.name && typeof newName !== "object") {
       try {
         await modifyCollection(
           this.props.collection._id,
           this.props.collection.items,
-          this.state.newName
+          newName
         );
       } catch (error) {
         console.log("error while saving", error);
       }
     }
     this.props.refresh(this.props.user._id);
-    this.setState({ editmode: false, newName: "" });
+    this.setState({ editmode: false });
   };
 
   setExpanded = panelId => {
@@ -74,18 +68,7 @@ class CollectionCard extends Component {
         >
           {" "}
           <Typography vairant="body1">
-            {this.state.editmode ? (
-              <>
-                #
-                <TextField
-                  size="small"
-                  value={this.state.newName}
-                  onChange={this.formHandleChange}
-                />
-              </>
-            ) : (
-              <>#{name} </>
-            )}
+            #{name}
           </Typography>
           <Box ml="10px">
             <Typography variant="caption" color="secondary">
@@ -99,8 +82,9 @@ class CollectionCard extends Component {
               <BookListUnderCol
                 editModeActive={this.state.editmode}
                 enabelEdit={this.nameEditField}
-                newName={this.state.newName}
+                
                 saveName={this.saveName}
+                formHandleChange={this.formHandleChange}
                 key={_id}
                 collid={_id}
                 collName={name}

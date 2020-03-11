@@ -12,31 +12,25 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import DefaultCollectionButton from "./DefaultCollectionButton";
 
-const useStyles = makeStyles({
-  root: {
-    
-  }
-});
+function cropString(string, length) {
+    return string
+}
 
 function BookCard(props) {
-  const classes = useStyles();
 
   const imageLink = !props.book.volumeInfo.imageLinks
     ? "images/Image-Coming-Soon.png"
     : props.book.volumeInfo.imageLinks.thumbnail;
   const title = !props.book.volumeInfo.title
     ? "Without title"
-    : props.book.volumeInfo.title;
+    : cropString(props.book.volumeInfo.title, 15)
   const releaseInfoFull = !props.book.volumeInfo.authors
     ? "Unknown Authors"
     : props.book.volumeInfo.authors.map(author => " " + author);
-  const releseInfoCropped =
-    releaseInfoFull.length > 40
-      ? releaseInfoFull.slice(40, releaseInfoFull.length) + "..."
-      : releaseInfoFull;
+  const releseInfoCropped = cropString(releaseInfoFull, 40)
 
   return (
-    <Card className={classes.root} key={props.book.id}>
+    <Card key={props.book.id}>
       <CardActionArea component={Link} to={`/book/${props.book.id}`}>
         <CardMedia
           component="img"

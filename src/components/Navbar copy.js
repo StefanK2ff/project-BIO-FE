@@ -13,16 +13,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MenuIcon from "@material-ui/icons/Menu";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import HomeIcon from "@material-ui/icons/Home";
-
-import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
-import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SearchIcon from '@material-ui/icons/Search';
 
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import BackButton from "./BackButton";
 
 const useStyles = makeStyles({
   list: {
@@ -32,7 +27,6 @@ const useStyles = makeStyles({
     width: "auto"
   }
 });
-
 
 
 
@@ -76,7 +70,7 @@ function Navbar(props) {
           <Typography className={classes.root}>
             <ListItem button key={"Search"} component={Link} to="/">
               <ListItemIcon>
-                <SearchIcon />
+                <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"Search (Home)"} />
             </ListItem>
@@ -88,14 +82,14 @@ function Navbar(props) {
               to="/collections"
             >
               <ListItemIcon>
-                <CollectionsBookmarkIcon />
+                <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"My Collections"} />
             </ListItem>
 
             <ListItem button key={"My Library"} component={Link} to="/library">
               <ListItemIcon>
-                <LocalLibraryIcon />
+                <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"My Library"} />
             </ListItem>
@@ -104,7 +98,7 @@ function Navbar(props) {
 
             <ListItem button key={"Logout"} onClick={props.logout}>
               <ListItemIcon>
-                <ExitToAppIcon />
+                <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"Logout"} />
             </ListItem>
@@ -114,19 +108,23 @@ function Navbar(props) {
         <List>
           <ListItem button key={"Search"} component={Link} to="/">
             <ListItemIcon>
-              <SearchIcon />
+              <InboxIcon />
             </ListItemIcon>
             <ListItemText primary={"Search (Home)"} />
           </ListItem>
           <Divider />
 
           <ListItem button key={"Login"} component={Link} to="/login">
-            
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
             <ListItemText primary={"Login"} />
           </ListItem>
 
           <ListItem button key={"Sign Up"} component={Link} to="/signup">
-            
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
             <ListItemText primary={"Sign Up"} />
           </ListItem>
         </List>
@@ -143,7 +141,9 @@ function Navbar(props) {
         justify="space-between"
         alignItems="center"
       >
-      <BackButton />
+        <Button onClick={handleBack}>
+          <ArrowBackIosIcon />
+        </Button>
 
         <Button component={Link} to="/">
           {/* onClick={props.history.goBack()} */} <HomeIcon />

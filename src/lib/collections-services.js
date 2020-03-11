@@ -38,7 +38,7 @@ async function createCollectionWithItems(owner, items, name) {
 async function deleteCollection(collectionId) {
   try {
     return await axios
-    .delete(`${process.env.REACT_APP_API_URL}/id/${collectionId}`)
+    .delete(`${process.env.REACT_APP_API_URL}/collections/id/${collectionId}`)
     .then(({ data }) =>
         console.log("this is the response from delete Collection ", data)
       )

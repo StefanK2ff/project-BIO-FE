@@ -14,6 +14,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from "@material-ui/core/TextField";
 
 class BookListUnderCol extends Component {
   state = {
@@ -21,7 +22,8 @@ class BookListUnderCol extends Component {
     booklist: false,
     edited: false,
     itemsResolved: [],
-    loading: false
+    loading: false,
+    newName: ""
   };
   doMarkForRemove = id => {
     let updatedItemsToRemove = [];
@@ -75,7 +77,14 @@ class BookListUnderCol extends Component {
 
   componentDidMount() {
     this.toggleBookList();
+    this.setState({newName: this.props.collName})
   }
+
+  formHandleChange = e => {
+    e.preventDefault();
+    let { value, name } = e.target;
+    this.setState({ [name]: value });
+  };
 
   loadBooks = () => {
     if (this.state.itemsResolved.length === 0) {
@@ -110,39 +119,56 @@ class BookListUnderCol extends Component {
         ) : (
           <>
             <List className="Class100">
-              <ListItem ClassName="collectionListing">
-                {!this.props.editModeActive ? (
-                  <>
-                    <ListItemText primary="Click to edit the name" />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        edge="start"
-                        onClick={this.props.enabelEdit}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </>
-                ) : this.props.newName !== this.props.collName ? (
-                  <>
-                    <ListItemText primary="Save new Name" />
-                    <ListItemSecondaryAction>
-                      <IconButton edge="start" onClick={this.props.saveName}>
-                        <CheckIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </>
-                ) : (
-                  <>
-                    <ListItemText primary="Keep Name" />
-                    <ListItemSecondaryAction>
-                      <IconButton edge="start" onClick={this.props.saveName}>
-                        <CheckIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </>
-                )}
+
+                    <ListItem ClassName="collectionListing">
+                      {!this.props.editModeActive ? (
+                        <>
+                          <ListItemText primary="Click to edit the name" />
+                          <ListItemSecondaryAction>
+                            <IconButton
+                              edge="start"
+                              onClick={this.props.enabelEdit}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </>
+                      ) : this.state.newName !== this.props.collName ? (
+                        <>
+                          <ListItemText primary="Save new Name" />
+                          <ListItemSecondaryAction>
+                            <IconButton edge="start" onClick={() => this.props.saveName(this.state.newName)}>
+                              <CheckIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </>
+                      ) : (
+                        <>
+                          <ListItemText primary="Keep Name" />
+                          <ListItemSecondaryAction>
+                            <IconButton edge="start" onClick={this.props.saveName}>
+                              <CheckIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </>
+
+
+                      )}
+                      </ListItem>
+                      {this.props.editModeActive ? (
+                        <ListItem ClassName="collectionListing">
+                #
+                <TextField
+                  size="small"
+                  value={this.state.newName}
+                  name="newName"
+                  onChange={this.formHandleChange}
+                />
               </ListItem>
+            ) : (
+              null
+            )}
+                    
 
               <ListItem ClassName="collectionListing">
                 {this.state.edited ? (
