@@ -9,7 +9,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-import FormLabel from "@material-ui/core/FormLabel";
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +25,9 @@ export default function SearchField(props) {
 
   return (
     <>
+    
     <Grid item xs={12} className={classes.root}>
+    <Box p="0">
       <TextField
         className={classes.margin}
         label="Search for books here"
@@ -44,15 +46,24 @@ export default function SearchField(props) {
           )
         }}
       />
+      </Box>
       </Grid>
      
       <Grid item xs={12} gutterBottom>
+      
       <Typography gutterBottom variant="caption">
         <RadioGroup name="searchFilter" row>
+        <Grid
+          container
+          spacing={0}
+          direction="row"
+          justify="space-around"
+          alignItems="flex-start"
+        >
           <FormControlLabel
             value=""
             control={<Radio color="primary" />}
-            label="All fields"
+            label="All"
             name="searchFilter"
             checked={props.searchFilter === ""}
             onChange={props.handleSearchSettings}
@@ -61,7 +72,7 @@ export default function SearchField(props) {
           <FormControlLabel
             value="intitle:"
             control={<Radio color="primary" />}
-            label="Only title"
+            label="Title"
             name="searchFilter"
             checked={props.searchFilter === "intitle:"}
             onChange={props.handleSearchSettings}
@@ -70,7 +81,7 @@ export default function SearchField(props) {
           <FormControlLabel
             value="inauthor:"
             control={<Radio color="primary" />}
-            label="Only author"
+            label="Author"
             name="searchFilter"
             checked={props.searchFilter === "inauthor:"}
             onChange={props.handleSearchSettings}
@@ -79,23 +90,25 @@ export default function SearchField(props) {
           <FormControlLabel
             value="inpublisher:"
             control={<Radio color="primary" />}
-            label="Only publisher"
+            label="Publisher"
             name="searchFilter"
             checked={props.searchFilter === "inpublisher:"}
             onChange={props.handleSearchSettings}
             labelPlacement="bottom"
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             value="isbn:"
             control={<Radio color="primary" />}
-            label="Only ISBN"
+            label="ISBN"
             name="searchFilter"
             checked={props.searchFilter === "isbn:"}
             onChange={props.handleSearchSettings}
             labelPlacement="bottom"
-          />
+          /> */}
+          </Grid>
         </RadioGroup>
         </Typography>
+        
         </Grid>
      
     </>

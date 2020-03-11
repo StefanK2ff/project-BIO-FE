@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 
 function Home() {
   return (
-    <div> 
+    <> 
     <Typography paragraph variant="h3">
     Books I Own
     </Typography>
@@ -12,7 +12,7 @@ function Home() {
     Manage your books <strong>as easy as never before</strong>.
     </Typography>
     <Search />
-    </div>
+    </>
   )
 }
 

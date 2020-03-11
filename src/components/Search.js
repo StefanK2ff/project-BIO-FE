@@ -4,16 +4,9 @@ import BookCard from "./BookCard";
 import { withAuth } from "./../lib/Auth";
 import SearchField from "./SearchField";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1)
-    }
-  }
-}));
+import { Link } from "react-router-dom";
+import Box from '@material-ui/core/Box'
 
 class Search extends Component {
   state = {
@@ -56,53 +49,48 @@ class Search extends Component {
   //xs, sm, md, lg, and xl
   render() {
     return (
-      <div>
+      <>
         <Grid
           container
           spacing={0}
           direction="row"
-          justify="flex-start"
+          justify="center"
           alignItems="flex-start"
         >
-        
-        <SearchField
+          <SearchField
             handleChange={this.formHandleChange}
             query={this.state.query}
             searchFilter={this.state.searchFilter}
             handleSearchSettings={this.handleSearchSettings}
           />
-        
-        
         </Grid>
 
+        <Box my="15px">
         <Grid
-        mt="2em"
-        mb="2em"
+
           container
           spacing={2}
           direction="row"
           justify="flex-start"
-          alignItems="flex-start">
-          
-        
-          
-
+          alignItems="flex-start"
+        >
           {this.state.visibleResults.map(book => {
             return (
-              <Grid item xs={6} sm={4} md={3} lg={2} key={book.id} >
+              <Grid item xs={6} sm={4} md={3} lg={2} key={book.id}>
                 <BookCard book={book} showDefault={true} />
               </Grid>
             );
           })}
-          </Grid>
+        </Grid>
+        </Box>
 
+        <Box my="15px">
         <Grid
           container
           direction="column"
           justify="center"
           alignItems="center"
           spacing={2}
-          
         >
           {this.state.results.length > 3 ? (
             !this.state.expandedSearch ? (
@@ -129,12 +117,12 @@ class Search extends Component {
             this.props.user ? (
               <>
                 <Grid item xs={12}>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary" component={Link} to="/collections">
                     Go to collections
                   </Button>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary" component={Link} to="/library">
                     Go to library
                   </Button>
                 </Grid>
@@ -142,12 +130,12 @@ class Search extends Component {
             ) : (
               <>
                 <Grid item xs={12}>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary" component={Link} to="/login">
                     Login
                   </Button>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary" component={Link} to="/signup">
                     Signup
                   </Button>
                 </Grid>
@@ -155,7 +143,8 @@ class Search extends Component {
             )
           ) : null}
         </Grid>
-      </div>
+        </Box>
+      </>
     );
   }
 }
