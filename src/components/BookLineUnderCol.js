@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from "@material-ui/icons/Delete";
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import IconButton from "@material-ui/core/IconButton";
+
 
 export default class BookLineUnderCol extends Component {
   state = {
@@ -8,9 +15,11 @@ export default class BookLineUnderCol extends Component {
     buttonText: "Remove"
   };
 
-  componentDidMount() {
-    
+  ListItemLink = (props) => {
+    return <ListItem button component="a" {...props} />;
   }
+
+  componentDidMount() {}
 
   toggleRemove = e => {
     e.preventDefault();
@@ -24,13 +33,26 @@ export default class BookLineUnderCol extends Component {
 
   render() {
     return (
-      <li key={this.props.book.id}>
-          <span>
-          <Link to={`/book/${this.props.book.id}`}>{this.props.book.volumeInfo.title} </Link> - {this.props.book.volumeInfo.authors.map((a) => a)}
-            <button onClick={this.toggleRemove}>{this.state.buttonText}</button>
-          </span>
-
-      </li>
+      <ListItem key={this.props.book.id}>
+        <this.ListItemLink href={`/book/${this.props.book.id}`}>
+          <ListItemText
+            primaryTypographyProps = {{"color" : !this.state.markedForRemoval ? "textPrimary": "textSecondary" }}
+            primary={this.props.book.volumeInfo.title ? this.props.book.volumeInfo.title : null}
+            secondary={
+              this.props.book.volumeInfo.authors ? this.props.book.volumeInfo.authors.map(a => a) : null
+            }
+          />
+        </this.ListItemLink>
+        <ListItemSecondaryAction>
+          <IconButton
+            edge="end"
+            aria-label="delete"
+            onClick={this.toggleRemove}
+          >
+            {this.state.markedForRemoval ? <RestoreFromTrashIcon />: <DeleteIcon />}
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
     );
   }
 }

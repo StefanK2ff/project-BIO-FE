@@ -8,7 +8,6 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Library from "./pages/Library";
 import MyCollections from "./pages/MyCollections";
-import MyCollectionsDetail from "./pages/MyCollectionsDetail";
 import BookDetail from "./pages/BookDetail";
 
 import AnonRoute from "./components/AnonRoute";
@@ -41,11 +40,7 @@ class App extends Component {
                 path="/collections"
                 component={MyCollections}
               />
-              <PrivateRoute
-                exact
-                path="/collections/:id"
-                component={MyCollectionsDetail}
-              />
+              
               <PrivateRoute exact path="/library" component={Library} />
               <PrivateRoute exact path="/book/:id" component={BookDetail} />
             </Switch>
