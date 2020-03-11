@@ -13,7 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
 import EditIcon from "@material-ui/icons/Edit";
-import ClearIcon from "@material-ui/icons/Clear";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class BookListUnderCol extends Component {
   state = {
@@ -106,7 +106,7 @@ class BookListUnderCol extends Component {
     return (
       <>
         {this.state.loading ? (
-          "Currently loading"
+          <CircularProgress />
         ) : (
           <>
             <List className="Class100">

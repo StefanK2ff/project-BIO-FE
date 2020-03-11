@@ -3,6 +3,7 @@ import { withAuth } from "../lib/Auth";
 import { getBook } from "../lib/bookAPI-helper";
 import CollectionCloud from "../components/CollectionCloud";
 import BookProfile from "../components/BookProfile";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class BookDetail extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class BookDetail extends Component {
         </div>
 
       );
-    } else return "loading";
+    } else return <CircularProgress />;
   }
 }
 

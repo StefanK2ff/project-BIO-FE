@@ -3,6 +3,8 @@ import { withAuth } from "./../lib/Auth";
 import BookFilter from "./../components/BookFilter";
 import BookLibraryListing from "./../components/BookLibraryListing";
 import { getBook } from "./../lib/bookAPI-helper";
+import PageTitle from "./../components/PageTitle"
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Library extends Component {
   state = {
@@ -18,7 +20,6 @@ class Library extends Component {
   componentDidMount() {
     let consolidateId = [];
     const result = this.consolidateBookIds();
-
     consolidateId = result;
     this.setState({ allBookIds: consolidateId }, () => {
       this.loadBooks(consolidateId).then(resultFromAPI => {
@@ -58,9 +59,9 @@ class Library extends Component {
   render() {
     return (
       <>
-        <h1>My Library</h1>
+        <PageTitle headline="My Library" subtitle="Your books in one place" />
         {this.state.loading ? (
-          "Books are getting loaded"
+          <CircularProgress />
         ) : (
           <>
             <BookFilter filterList={this.filterList} />

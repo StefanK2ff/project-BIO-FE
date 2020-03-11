@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter } from "react-router-dom";
 import { withAuth } from "./../lib/Auth";
 import Typography from "@material-ui/core/Typography";
 
@@ -12,6 +12,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MenuIcon from "@material-ui/icons/Menu";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import HomeIcon from "@material-ui/icons/Home";
+
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles({
   list: {
@@ -118,17 +124,40 @@ function Navbar(props) {
   );
 
   return (
-    <div>
-      <Button onClick={toggleDrawer("right", true)}>Menue</Button>
-      <SwipeableDrawer
-        anchor="right"
-        open={state.right}
-        onClose={toggleDrawer("right", false)}
-        onOpen={toggleDrawer("right", true)}
+    <>
+      <Box my="10px">
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
       >
-        {sideList("right")}
-      </SwipeableDrawer>
-    </div>
+        <Button >
+          {/* onClick={props.history.goBack()} */} <ArrowBackIosIcon />
+        </Button>
+
+        <Button component={Link} to="/">
+          {/* onClick={props.history.goBack()} */} <HomeIcon />
+        </Button>
+
+        <Button onClick={toggleDrawer("right", true)}>
+          {" "}
+          <MenuIcon />{" "}
+        </Button>
+      </Grid>
+      </Box>
+
+      <Grid item xs={12}>
+        <SwipeableDrawer
+          anchor="right"
+          open={state.right}
+          onClose={toggleDrawer("right", false)}
+          onOpen={toggleDrawer("right", true)}
+        >
+          {sideList("right")}
+        </SwipeableDrawer>
+      </Grid>
+    </>
   );
 }
 

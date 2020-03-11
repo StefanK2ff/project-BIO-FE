@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import authService from "./auth-service"; // IMPORT functions for axios requests to API
+import CircularProgress from '@material-ui/core/CircularProgress';
 const { Consumer, Provider } = React.createContext();
 
 //HOC to create a Consumer
@@ -100,12 +101,10 @@ class AuthProvider extends React.Component {
     return (
       <Provider value={{ isLoading, isLoggedIn, user, login, logout, signup, refresh }}>
 
-        {isLoading ? "is loading" : this.props.children}
+        {isLoading ? <> <CircularProgress /></> : this.props.children}
       </Provider>
     );
-    /*
-      <Provider> `value={}` data will be available to all <Consumer> components 
-    */
+
   }
 }
 
