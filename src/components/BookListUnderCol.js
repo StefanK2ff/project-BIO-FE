@@ -12,8 +12,9 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
+import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 
 class BookListUnderCol extends Component {
@@ -33,6 +34,7 @@ class BookListUnderCol extends Component {
       console.log(this.state.itemsToRemove);
     });
   };
+
   undoMarkForRemove = id => {
     let updatedItemsToRemove = this.state.itemsToRemove;
     const i = updatedItemsToRemove.indexOf(id);
@@ -66,26 +68,23 @@ class BookListUnderCol extends Component {
 
   saveChanges = e => {
     let newItemList = this.props.items;
-    let itemsResolvedCopy = this.state.itemsResolved
+    let itemsResolvedCopy = this.state.itemsResolved;
     this.state.itemsToRemove.forEach(item => {
       const i = newItemList.indexOf(item);
       if (i > -1) newItemList.splice(i, 1);
 
-      this.state.itemsResolved.forEach( (resolvedItem, index) => {
-        if (resolvedItem.id === item) itemsResolvedCopy.splice(index,1) 
+      this.state.itemsResolved.forEach((resolvedItem, index) => {
+        if (resolvedItem.id === item) itemsResolvedCopy.splice(index, 1);
       });
     });
     modifyCollection(this.props.collid, newItemList, this.props.collName); //// collectionId, items, name
-
     this.props.refresh(this.props.user._id);
-
-
     this.setState({ itemsResolved: itemsResolvedCopy, edited: false });
   };
 
   componentDidMount() {
     this.toggleBookList();
-    this.setState({newName: this.props.collName})
+    this.setState({ newName: this.props.collName });
   }
 
   formHandleChange = e => {
@@ -127,55 +126,39 @@ class BookListUnderCol extends Component {
         ) : (
           <>
             <List className="Class100">
-
-                    <ListItem ClassName="collectionListing">
-                      {!this.props.editModeActive ? (
-                        <>
-                          <ListItemText primary="Click to edit the name" />
-                          <ListItemSecondaryAction>
-                            <IconButton
-                              edge="start"
-                              onClick={this.props.enabelEdit}
-                            >
-                              <EditIcon />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </>
-                      ) : this.state.newName !== this.props.collName ? (
-                        <>
-                          <ListItemText primary="Save new Name" />
-                          <ListItemSecondaryAction>
-                            <IconButton edge="start" onClick={() => this.props.saveName(this.state.newName)}>
-                              <CheckIcon />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </>
-                      ) : (
-                        <>
-                          <ListItemText primary="Keep Name" />
-                          <ListItemSecondaryAction>
-                            <IconButton edge="start" onClick={this.props.saveName}>
-                              <CheckIcon />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </>
-
-
-                      )}
-                      </ListItem>
-                      {this.props.editModeActive ? (
-                        <ListItem ClassName="collectionListing">
-                #
-                <TextField
-                  size="small"
-                  value={this.state.newName}
-                  name="newName"
-                  onChange={this.formHandleChange}
-                />
+              <ListItem ClassName="collectionListing">
+                {!this.props.editModeActive ? (
+                  <>
+                    <ListItemText primary="Click to edit the name" />
+                    
+                      <IconButton edge="start" onClick={this.props.enabelEdit}>
+                        <EditIcon />
+                      </IconButton>
+                    
+                  </>
+                ) : (
+                  <ListItem ClassName="collectionListing Class100">
+                    #
+                    <TextField
+                      size="small"
+                      value={this.state.newName}
+                      name="newName"
+                      fullWidth
+                      onChange={this.formHandleChange}
+                    />
+                    
+                      <IconButton edge="end" onClick={() => this.props.saveName(this.state.newName)}>
+                        {this.state.newName !== this.props.collName ? (
+                          <CheckIcon />
+                        ) : (
+                          <ClearIcon />
+                        )}
+                      </IconButton>
+                    
+                  </ListItem>
+                )}
               </ListItem>
-            ) : (
-              null
-            )}
+
               <ListItem ClassName="collectionListing">
                 {this.state.edited ? (
                   <>
@@ -190,9 +173,9 @@ class BookListUnderCol extends Component {
                   <ListItemText primary="Mark your books for removal" />
                 )}
               </ListItem>
-            
-            <Divider />
-            
+
+              <Divider />
+
               {this.state.itemsResolved.map(book => {
                 return (
                   <BookLineUnderCol
