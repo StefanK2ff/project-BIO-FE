@@ -1,7 +1,6 @@
 import { withAuth } from "./../lib/Auth";
 
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -12,8 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import DefaultCollectionButton from "./DefaultCollectionButton";
 
-function cropString(string, length) {
-    return string
+function trimString(string, end) {
+  if (string.length > end) return string.substring(string, end)+"..."
+  else return string
 }
 
 function BookCard(props) {
@@ -23,11 +23,11 @@ function BookCard(props) {
     : props.book.volumeInfo.imageLinks.thumbnail;
   const title = !props.book.volumeInfo.title
     ? "Without title"
-    : cropString(props.book.volumeInfo.title, 15)
+    : trimString(props.book.volumeInfo.title, 30)
   const releaseInfoFull = !props.book.volumeInfo.authors
     ? "Unknown Authors"
     : props.book.volumeInfo.authors.map(author => " " + author);
-  const releseInfoCropped = cropString(releaseInfoFull, 40)
+  const releseInfoCropped = trimString(releaseInfoFull.toString(), 30)
 
   return (
     <Card key={props.book.id}>
