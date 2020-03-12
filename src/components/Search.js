@@ -57,6 +57,7 @@ class Search extends Component {
           direction="row"
           justify="center"
           alignItems="flex-start"
+          gutterBottom
         >
           <SearchField
             handleChange={this.formHandleChange}
