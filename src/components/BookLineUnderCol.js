@@ -7,6 +7,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DeleteIcon from "@material-ui/icons/Delete";
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import IconButton from "@material-ui/core/IconButton";
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 
 
 export default class BookLineUnderCol extends Component {
@@ -35,6 +37,10 @@ export default class BookLineUnderCol extends Component {
     return (
       <ListItem key={this.props.book.id } className="bookLineUnderCollectionText">
         <this.ListItemLink href={`/book/${this.props.book.id}`}>
+        <ListItemAvatar>
+          <Avatar src= {this.props.book.volumeInfo.imageLinks.smallThumbnail }/>
+           
+          </ListItemAvatar>
           <ListItemText
             
             primaryTypographyProps = {{"color" : !this.state.markedForRemoval ? "textPrimary": "textSecondary" }}

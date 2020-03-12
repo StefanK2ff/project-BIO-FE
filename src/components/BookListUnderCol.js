@@ -87,9 +87,12 @@ class BookListUnderCol extends Component {
     this.setState({ newName: this.props.collName });
   }
 
-  formHandleChange = e => {
+  formHandleChange = async e => {
     e.preventDefault();
     let { value, name } = e.target;
+    if (value[value.length - 1] === " ") {
+      value = value.slice(0, -1);
+    }
     this.setState({ [name]: value });
   };
 
@@ -140,6 +143,7 @@ class BookListUnderCol extends Component {
                   <ListItem ClassName="collectionListing Class100">
                     #
                     <TextField
+                      required
                       size="small"
                       value={this.state.newName}
                       name="newName"

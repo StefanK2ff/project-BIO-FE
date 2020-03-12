@@ -56,7 +56,6 @@ class CollectionCloud extends Component {
     if (value[value.length - 1] === " ") {
       value = value.slice(0, -1);
     }
-    //value = value.slice(1, value.length)
     this.setState({ [name]: value });
   };
 
@@ -144,6 +143,7 @@ class CollectionCloud extends Component {
                   <input
                     type="text"
                     name="newCollection"
+                    required
                     className="hiddenAddField"
                     placeholder="newCollection"
                     onChange={this.formHandleChange}
