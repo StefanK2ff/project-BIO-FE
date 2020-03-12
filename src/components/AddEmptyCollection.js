@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
-import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { createCollectionWithItems } from "./../lib/collections-services";
 import { withAuth } from "./../lib/Auth";
