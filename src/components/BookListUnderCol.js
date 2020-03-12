@@ -66,13 +66,21 @@ class BookListUnderCol extends Component {
 
   saveChanges = e => {
     let newItemList = this.props.items;
+    let itemsResolvedCopy = this.state.itemsResolved
     this.state.itemsToRemove.forEach(item => {
       const i = newItemList.indexOf(item);
       if (i > -1) newItemList.splice(i, 1);
+
+      this.state.itemsResolved.forEach( (resolvedItem, index) => {
+        if (resolvedItem.id === item) itemsResolvedCopy.splice(index,1) 
+      });
     });
     modifyCollection(this.props.collid, newItemList, this.props.collName); //// collectionId, items, name
+
     this.props.refresh(this.props.user._id);
-    this.setState({ itemsResolved: [] });
+
+
+    this.setState({ itemsResolved: itemsResolvedCopy, edited: false });
   };
 
   componentDidMount() {
@@ -168,8 +176,6 @@ class BookListUnderCol extends Component {
             ) : (
               null
             )}
-                    
-
               <ListItem ClassName="collectionListing">
                 {this.state.edited ? (
                   <>
