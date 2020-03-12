@@ -185,3 +185,8 @@ select[multiple]
 .Class100 {
 	width: 100%
 }
+
+.bookListImage {
+	object-fit: contain !important;
+	background-color: #f6f6f6;
+}

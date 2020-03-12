@@ -62,7 +62,7 @@ export default function BookProfile(props) {
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6} id={"imageContainer"}>
                   {!imageLinks.small ? (
-                    <img src="images/Image-Coming-Soon.png" alt="" />
+                    <img src="/images/Image-Coming-Soon.png" alt="" />
                   ) : (
                     <img src={getImage(imageLinks.small)} alt="" />
                   )}

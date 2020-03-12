@@ -33,6 +33,7 @@ function BookCard(props) {
     <Card key={props.book.id}>
       <CardActionArea component={Link} to={`/book/${props.book.id}`}>
         <CardMedia
+          className="bookListImage"
           component="img"
           alt={title}
           height="250"
