@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import DefaultCollectionButton from "./DefaultCollectionButton";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 function trimString(string, end) {
   if (string.length > end) return string.substring(string, end)+"..."
@@ -42,7 +43,7 @@ function BookCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {title}
+            {title}  <ArrowForwardIcon color="secondary" fontSize="small" />
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {releseInfoCropped}
