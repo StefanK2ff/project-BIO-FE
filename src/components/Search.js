@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import Box from '@material-ui/core/Box'
 
+
 class Search extends Component {
   state = {
     searchFilter: "",
@@ -42,8 +43,8 @@ class Search extends Component {
     }
   };
 
+
   handleSearchSettings = e => {
-    console.log(e.taget);
     this.setState({ searchFilter: e.target.value });
   };
   //xs, sm, md, lg, and xl

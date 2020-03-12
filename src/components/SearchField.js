@@ -8,6 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { DebounceInput } from "react-debounce-input";
 
 import Box from "@material-ui/core/Box";
 
@@ -26,7 +27,10 @@ export default function SearchField(props) {
     <>
       <Grid item xs={12} className={classes.root}>
         <Box p="0">
-          <TextField
+          <DebounceInput
+            minLength={2}
+            debounceTimeout={300}
+            element={TextField}
             className={classes.margin}
             label="Search for books here"
             variant="outlined"
