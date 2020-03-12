@@ -166,7 +166,7 @@ class BookListUnderCol extends Component {
               <ListItem ClassName="collectionListing">
                 {this.state.edited ? (
                   <>
-                    <ListItemText primary="Click to onfirm deletion" />
+                    <ListItemText primary="Click to confirm deletion" />
                     <ListItemSecondaryAction>
                       <IconButton edge="start" onClick={this.saveChanges}>
                         <DeleteIcon />

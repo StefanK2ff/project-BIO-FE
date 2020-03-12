@@ -9,6 +9,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from '@material-ui/core/Box'
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 /* NOTES 
     This modulre requires following Data
@@ -79,7 +81,7 @@ class CollectionCloud extends Component {
           <Box p="20px">
             <Grid item cs={12}>
               <Typography variant="caption">
-                Click to add / remove from collections
+                Click to add / remove this book:
               </Typography>
             </Grid>
             <Grid item cs={12}>
@@ -92,7 +94,7 @@ class CollectionCloud extends Component {
                 {this.props.user.collections.map(collection => {
                   if (collection.items.includes(this.props.bookId)) {
                     return (
-                      <Box mr="15px" my="5px">
+                      <Box mr="10px" my="3px">
                       <Button
                         size="small"
                         color="primary"
@@ -109,12 +111,13 @@ class CollectionCloud extends Component {
                         variant="contained"
                       >
                         #{collection.name}
+                        <BookmarkIcon fontSize="small" />
                       </Button>
                       </Box>
                     );
                   } else {
                     return (
-                      <Box mr="15px" my="5px">
+                      <Box mr="10px" my="3px">
                       <Button
                         key={collection._id}
                         onClick={() =>
@@ -128,12 +131,13 @@ class CollectionCloud extends Component {
                         color="primary"
                       >
                         #{collection.name}
+                        <BookmarkBorderIcon fontSize="small" />
                       </Button>
                       </Box>
                     );
                   }
                 })}
-                <Box mr="15px" my="5px">
+                <Box mr="10px" my="3px">
                 <Button variant="outlined"
                         size="small"
                         color="primary"

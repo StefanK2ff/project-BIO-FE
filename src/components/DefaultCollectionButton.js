@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { withAuth } from "../lib/Auth";
 import { modifyCollection } from "./../lib/collections-services";
 import Button from "@material-ui/core/Button";
-import { Typography } from "@material-ui/core";
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 /* 
     This Component needs
@@ -89,6 +90,7 @@ class DefaultCollectionButton extends Component {
             variant="contained"
           >
             #{name}
+            <BookmarkIcon fontSize="small"/>
           </Button>
         ) : (
           <Button
@@ -102,6 +104,7 @@ class DefaultCollectionButton extends Component {
             color="primary"
           >
             #{name}
+            <BookmarkBorderIcon fontSize="small" />
           </Button>
         )}
       </>
