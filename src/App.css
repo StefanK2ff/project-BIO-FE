@@ -190,3 +190,7 @@ select[multiple]
 	object-fit: contain !important;
 	background-color: #f6f6f6;
 }
+
+.bookLineUnderCollectionText {
+	padding-left: 0px !important;
+}

@@ -33,9 +33,10 @@ export default class BookLineUnderCol extends Component {
 
   render() {
     return (
-      <ListItem key={this.props.book.id}>
+      <ListItem key={this.props.book.id } className="bookLineUnderCollectionText">
         <this.ListItemLink href={`/book/${this.props.book.id}`}>
           <ListItemText
+            
             primaryTypographyProps = {{"color" : !this.state.markedForRemoval ? "textPrimary": "textSecondary" }}
             primary={this.props.book.volumeInfo.title ? this.props.book.volumeInfo.title : null}
             secondary={
