@@ -52,7 +52,7 @@ class DefaultCollectionButton extends Component {
       this.state.defaultCollection.name
     ); // collectionId, items, name
     this.props.refresh(this.props.user._id);
-    this.forceUpdate();
+    
   };
 
   removeFromCollection = e => {
@@ -65,7 +65,7 @@ class DefaultCollectionButton extends Component {
       this.state.defaultCollection.name
     ); // collectionId, items, name
     this.props.refresh(this.props.user._id);
-    this.forceUpdate();
+    
   };
 
   getItemList = collectionID => {
