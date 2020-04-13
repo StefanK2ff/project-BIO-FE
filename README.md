@@ -334,8 +334,6 @@ Performs a Search on API to display listing</td>
   </tr>
 </table>
 
-
-
 # Frontend: Helper Functions
 
 * (Work in progress)
@@ -365,6 +363,44 @@ Performs a Search on API to display listing</td>
   * Takes 1 arg to define how many data should come back
 
 # Frontend: Component planning
+(c) = Component; (f) function
+material UI function components ignored
+
+## Navbar
+* Backbutton (f)
+
+## Home Page
+* PageTitle (f)
+* Search (c) (uses global state to determin if logged in)
+  * SearchField (f)
+  * BookCard (f) (uses global state to determin if logged in)
+    * DefaultCollectionButton (c)  (uses global state to find users's default list)
+
+## MyCollections Page
+* PageTitle (f)
+* AddEmptyCollection (c)
+* CollectionCard (c)
+  * BookListUnderCol (c)
+    * BookLineUnderCol (c)
+
+## Library Page
+* PageTitle (f)
+* BookFilter (c)
+* BookLibraryListing (c)
+  * BookCard (f)
+    * DefaultCollectionButton (c)
+  * CollectionCloud (c)
+
+## BookDetail
+* BookProfile (f)
+* CollectionCloud (c)
+
+## Signup
+* no children (except Material UI)
+
+## Login
+* no children (except Material UI)
+
 
 ## Needed Provider: UserProvider
 

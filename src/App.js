@@ -15,10 +15,8 @@ import PrivateRoute from "./components/PrivateRoute";
 
 import "typeface-roboto";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from "@material-ui/core/Container";
 
-import dotenv from "dotenv";
 
 class App extends Component {
   render() {
