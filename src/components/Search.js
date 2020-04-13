@@ -1,12 +1,18 @@
+//main Imports
 import React, { Component } from "react";
 import { fullSearch } from "./../lib/bookAPI-helper";
 import BookCard from "./BookCard";
-import { withAuth } from "./../lib/Auth";
 import SearchField from "./SearchField";
+//redux imports
+import {isLoggedIn, testBad, testFun} from "./../actions";
+
+import { connect } from 'react-redux';
+
+//Material UI Imports
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import Box from '@material-ui/core/Box'
+import Box from '@material-ui/core/Box';
 
 
 class Search extends Component {
@@ -15,10 +21,11 @@ class Search extends Component {
     query: "",
     results: [],
     visibleResults: [],
-    expandedSearch: false
+    expandedSearch: false,
   };
+
   componentDidMount() {
-    if (this.props.user) this.props.refresh(this.props.user._id);
+    
   }
 
   toggleExpandedSearch = () => {
@@ -43,12 +50,13 @@ class Search extends Component {
     }
   };
 
-
   handleSearchSettings = e => {
     this.setState({ searchFilter: e.target.value });
   };
+
   //xs, sm, md, lg, and xl
   render() {
+
     return (
       <>
         <Grid
@@ -150,4 +158,11 @@ class Search extends Component {
   }
 }
 
-export default withAuth(Search);
+//user data from the store
+function mapStateToProps(state) {
+    return {
+    user: state.user
+  }
+} 
+
+export default connect(mapStateToProps)(Search);

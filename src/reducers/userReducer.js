@@ -1,4 +1,4 @@
-const testReducer = (state = {name: "Initial", status: 0}, action) => {
+const userReducer = (state = null, action) => {
   switch (action.type) {
     case "INITIALFUN":
       return (state = "Initital + Fun");
@@ -9,4 +9,4 @@ const testReducer = (state = {name: "Initial", status: 0}, action) => {
   }
 };
 
-export default testReducer;
+export default userReducer;

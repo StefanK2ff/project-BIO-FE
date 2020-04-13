@@ -1,5 +1,4 @@
 import authService from "./../lib/auth-service"; // IMPORT functions for axios requests to API
-
 const isLoggedReducer = (state = null, action) => {
     switch (action.type) {
         case "ISLOGGEDIN": {

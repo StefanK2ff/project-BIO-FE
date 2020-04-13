@@ -1,19 +1,20 @@
+//main imports
 import React, { Component } from "react";
-import { withAuth } from "./../lib/Auth";
 import { Link } from "react-router-dom";
 
+//material UI Imports
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 class Login extends Component {
+  //local state for field input
   state = { email: "", password: "" };
 
   handleFormSubmit = event => {
     event.preventDefault();
     const { email, password } = this.state;
-
     this.props.login(email, password);
   };
 
@@ -28,7 +29,7 @@ class Login extends Component {
     return (
       <div>
         <Typography component="h1" variant="h5">
-          Welcome back! Log in here
+          Welcome back! Please log in here.
         </Typography>
         <form noValidate onSubmit={this.handleFormSubmit}>
           <TextField
@@ -80,4 +81,4 @@ class Login extends Component {
   }
 }
 
-export default withAuth(Login);
+export default Login;

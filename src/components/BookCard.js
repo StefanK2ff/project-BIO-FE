@@ -1,6 +1,10 @@
-import { withAuth } from "./../lib/Auth";
-
+//main imports
 import React from "react";
+import { Link } from "react-router-dom";
+import DefaultCollectionButton from "./DefaultCollectionButton";
+import { useSelector } from "react-redux"
+
+//material imports
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,8 +12,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
-import DefaultCollectionButton from "./DefaultCollectionButton";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 function trimString(string, end) {
@@ -18,7 +20,7 @@ function trimString(string, end) {
 }
 
 function BookCard(props) {
-
+  //book data from the props and API
   const imageLink = !props.book.volumeInfo.imageLinks
     ? "images/Image-Coming-Soon.png"
     : props.book.volumeInfo.imageLinks.thumbnail;
@@ -29,6 +31,9 @@ function BookCard(props) {
     ? "Unknown Authors"
     : props.book.volumeInfo.authors.map(author => " " + author);
   const releseInfoCropped = trimString(releaseInfoFull.toString(), 30)
+
+  //user data from the store
+  const globUser = useSelector(state => state.user)
 
   return (
     <Card key={props.book.id}>
@@ -51,16 +56,16 @@ function BookCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {props.user && props.showDefault ? (
+        {globUser && props.showDefault ? (
           <DefaultCollectionButton bookId={props.book.id} />
-        ) : ( props.user && !props.showDefault ? null :
+        ) : (globUser && !props.showDefault ? null :
           <Button size="small" color="secondary" component={Link} to="/login">
             log in to continue
           </Button>
         )}
-      </CardActions>
+      </CardActions> 
     </Card>
   );
 }
 
-export default withAuth(BookCard);
+export default BookCard;
