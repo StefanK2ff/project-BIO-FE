@@ -53,14 +53,7 @@ class AuthProvider extends React.Component {
   };
 
   componentDidMount() {
-    authService
-      .me() //gives back a promise
-      .then(user =>
-        this.setState({ isLoggedIn: true, user: user, isLoading: false })
-      )
-      .catch(err =>
-        this.setState({ isLoggedIn: false, user: null, isLoading: false })
-      );
+    
   }
 
   refresh = (userId) => {

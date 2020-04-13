@@ -26,22 +26,22 @@ class App extends Component {
         <React.Fragment>
           <CssBaseline />
           <Container maxWidth="md">
-            <Navbar />
+            {/* <Navbar /> */}
 
             <Switch>
               <Route exact path="/" component={Home} />
 
-              <AnonRoute exact path="/signup" component={Signup} />
-              <AnonRoute exact path="/login" component={Login} />
+              {/* <AnonRoute exact path="/signup" component={Signup} />
+              <AnonRoute exact path="/login" component={Login} /> */}
 
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path="/collections"
                 component={MyCollections}
               />
               
               <PrivateRoute exact path="/library" component={Library} />
-              <PrivateRoute exact path="/book/:id" component={BookDetail} />
+              <PrivateRoute exact path="/book/:id" component={BookDetail} /> */}
             </Switch>
           </Container>
         </React.Fragment>
